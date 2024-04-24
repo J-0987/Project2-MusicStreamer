@@ -1,20 +1,20 @@
 [
     {
-      "name": "Bee Gees"
+      "artist_name": "Bee Gees"
     },
     {
-      "name": "Abba"
+      "artist_name": "Abba"
     },
     {
-      "name": "Michael Jackson"
+      "artist_name": "Michael Jackson"
     },
     {
-      "name": "Mariah Carey"
+      "artist_name": "Mariah Carey"
     },
     {
-      "name": "Whitney Houston"
+      "artist_name": "Whitney Houston"
     },
     {
-      "name": "Missy Elliot"
+      "artist_name": "Missy Elliot"
     }
   ]

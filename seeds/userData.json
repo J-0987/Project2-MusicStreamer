@@ -1,0 +1,32 @@
+[
+    {
+        "username": "John Doe",
+        "email": "john@abc.com",
+        "password": "password1"
+    },
+    {
+        "username": "Jane Smith",
+        "email": "jane@abc.com",
+        "password": "password2"
+    },
+    {
+        "username": "Mike Johnson",
+        "email": "mike@abc.com",
+        "password": "password3"
+    },
+    {
+        "username": "Sarah Williams",
+        "email": "sarah@abc.com",
+        "password": "password4"
+    },
+    {
+        "username": "David Brown",
+        "email": "david@abc.com",
+        "password": "password5"
+    },
+    {
+        "username": "Emily Davis",
+        "email": "emily@abc.com",
+        "password": "password6"
+    }
+]
