@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 
 // GET /api/songs/:title
 // get a specific song by its title
-router.get('/api/songs/title/:title', async (req, res) => {
+router.get('/api/songs/:title', async (req, res) => {
 
 
     try {
@@ -37,7 +37,7 @@ router.get('/api/songs/title/:title', async (req, res) => {
 
 // GET /api/songs/:album
 // get all songs by its album
-router.get('/api/songs/album/:album', async (req, res) => {
+router.get('/api/songs/:album', async (req, res) => {
     try {
         // Fetch all songs from database using the album
         const songs = await Song.findAll({ where: { album: req.params.album } });

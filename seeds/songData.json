@@ -1,94 +1,38 @@
-{
-    "songs": [
-        {
-            "artist": "Bee Gees",
-            "song_title": "Stayin' Alive",
-            "album": "Saturday Night Fever",
-            "song_url": "https://www.youtube.com/watch?v=WlgoUlOkyzU"
-        },
-        {
-            "artist": "Bee Gees",
-            "song_title": "How Deep Is Your Love",
-            "album": "Saturday Night Fever",
-            "song_url": "https://www.youtube.com/watch?v=WlgoUlOkyzU"
-        },
-        {
-            "artist": "Bee Gees",
-            "song_title": "Night Fever",
-            "album": "Saturday Night Fever",
-            "song_url": "https://www.youtube.com/watch?v=WlgoUlOkyzU"
-        },
-        {
-            "artist": "Bee Gees",
-            "song_title": "More Than a Woman",
-            "album": "Saturday Night Fever",
-            "song_url": "https://www.youtube.com/watch?v=WlgoUlOkyzU"
-        },
-        {
-            "artist": "Bee Gees",
-            "song_title": "Tragedy",
-            "album": "Spirits Having Flown",
-            "song_url": "https://www.youtube.com/watch?v=WlgoUlOkyzU"
-        },
-        {
-            "artist": "Missy Elliot",
-            "song_title": "Get Ur Freak On",
-            "album": "Miss E... So Addictive",
-            "song_url": "https://www.youtube.com/watch?v=WlgoUlOkyzU"
-        },
-        {
-            "artist": "Missy Elliot",
-            "song_title": "Work It",
-            "album": "Under Construction",
-            "song_url": "https://www.youtube.com/watch?v=WlgoUlOkyzU"
-        },
-        {
-            "artist": "Missy Elliot",
-            "song_title": "Lose Control",
-            "album": "The Cookbook",
-            "song_url": "https://www.youtube.com/watch?v=WlgoUlOkyzU"
-        },
-        {
-            "artist": "Missy Elliot",
-            "song_title": "Gossip Folks",
-            "album": "Under Construction",
-            "song_url": "https://www.youtube.com/watch?v=WlgoUlOkyzU"
-        },
-        {
-            "artist": "Missy Elliot",
-            "song_title": "Pass That Dutch",
-            "album": "Under Construction",
-            "song_url": "https://www.youtube.com/watch?v=NCL0NAqzLgI"
-        },
-        {
-            "artist": "Abba",
-            "song_title": "Dancing Queen",
-            "album": "Arrival",
-            "song_url": "https://www.youtube.com/watch?v=3qiMJt-JBb4"
-        },
-        {
-            "artist": "Abba",
-            "song_title": "Mamma Mia",
-            "album": "ABBA",
-            "song_url": "https://www.youtube.com/watch?v=3qiMJt-JBb4"
-        },
-        {
-            "artist": "Abba",
-            "song_title": "Take a Chance on Me",
-            "album": "The Album",
-            "song_url": "https://www.youtube.com/watch?v=3qiMJt-JBb4"
-        },
-        {
-            "artist": "Abba",
-            "song_title": "Waterloo",
-            "album": "Waterloo",
-            "song_url": "https://www.youtube.com/watch?v=3qiMJt-JBb4"
-        },
-        {
-            "artist": "Abba",
-            "song_title": "The Winner Takes It All",
-            "album": "Super Trouper",
-            "song_url": "https://www.youtube.com/watch?v=3qiMJt-JBb4"
-        }
-    ]
-}
+[
+    {
+        "artist_id": 1,
+        "song_title": "How Deep Is Your Love",
+        "album": "Saturday Night Fever",
+        "song_url": "https://www.youtube.com/watch?v=WlgoUlOkyzU"
+    },
+    {
+        "artist_id": 1,
+        "song_title": "More Than a Woman",
+        "album": "Saturday Night Fever",
+        "song_url": "https://www.youtube.com/watch?v=WlgoUlOkyzU"
+    },
+    {
+        "artist_id": 1,
+        "song_title": "Night Fever",
+        "album": "Saturday Night Fever",
+        "song_url": "https://www.youtube.com/watch?v=WlgoUlOkyzU"
+    },
+    {
+        "artist_id": 1,
+        "song_title": "Stayin' Alive",
+        "album": "Saturday Night Fever",
+        "song_url": "https://www.youtube.com/watch?v=WlgoUlOkyzU"
+    },
+    {
+        "artist_id": 1,
+        "song_title": "Tragedy",
+        "album": "Spirits Having Flown",
+        "song_url": "https://www.youtube.com/watch?v=WlgoUlOkyzU"
+    },
+    {
+        "artist_id": 6,
+        "song_title": "Get Ur Freak On",
+        "album": "Miss E... So Addictive",
+        "song_url": "https://www.youtube.com/watch?v=WlgoUlOkyzU"
+    }
+]
