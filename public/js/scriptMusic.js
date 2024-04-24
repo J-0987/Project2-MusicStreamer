@@ -115,3 +115,9 @@ themeButton.onclick = function () {
 
 
 setTheme();
+
+
+loginButton = document.getElementById('loginButton');
+loginButton.onclick = function () {
+    window.location.href = './login.html';
+}
