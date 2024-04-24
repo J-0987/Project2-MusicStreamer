@@ -27,23 +27,24 @@ Song.init(
             is: /^[a-zA-Z0-9\s\S]+$/ // Allows any type of data - numbers, letters, and special symbols
         }
     },
-    release_date: {
-        type: DataTypes.DATE,
-        allowNull: false,
-    },
-    genre: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            is: /^[a-zA-Z0-9\s\S]+$/ // Allows any type of data - numbers, letters, and special symbols
-        }
-    },
+    
     artist_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: 'artist',
             key: 'id',
+        },
+    },
+
+    song_url: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            is: /^[a-zA-Z0-9\s\S]+$/ // Allows any type of data - numbers, letters, and special symbols
+        },
+        validate: {
+            isUrl: true
         },
     },
     },

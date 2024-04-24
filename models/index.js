@@ -2,7 +2,7 @@
 const Artist = require('./Artist');
 const Song = require('./Song');
 const Playlist = require('./Playlist');
-const PlaylistSong = require('./Playlist-Song');
+
 
 // Define the relationships between each model
 
@@ -19,21 +19,29 @@ Song.belongsTo(Artist, {
 });
 
 // A Playlist can have many songs
-Playlist.hasMany(PlaylistSong, {
-    foreignKey: 'playlist_id',
+Playlist.hasMany(Song, {
+    foreignKey: 'song_id',
     onDelete: 'CASCADE',
 });
 
-// A Song can belong to many Playlists
-Song.belongsToMany(Playlist, {
-    through: PlaylistSong,
+// A Song belongs to a Playlist
+Song.belongsTo(Playlist, {
     foreignKey: 'song_id',
 });
 
-// A Playlist can have many songs
-Playlist.belongsToMany(Song, {
-    through: PlaylistSong,
-    foreignKey: 'playlist_id',
+// A Playlist can have many artists
+Playlist.hasMany(Artist, {
+    foreignKey: 'artist_id',
+    onDelete: 'CASCADE',
 });
 
-module.exports = { Artist, Song, Playlist, PlaylistSong };
+// An Artist belongs to a Playlist
+Artist.belongsTo(Playlist, {
+    foreignKey: 'artist_id',
+});
+
+
+
+
+
+module.exports = { Artist, Song, Playlist};
