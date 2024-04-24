@@ -34,6 +34,22 @@ Playlist.init(
                 is: /^[a-zA-Z0-9\s\S]+$/ // Allows any type of data - numbers, letters, and special symbols
             }
         },  
+        song_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'song',
+                key: 'id',
+            },
+        },
+        artist_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'artist',
+                key: 'id',
+            },
+        },
     },
         {
         sequelize,
