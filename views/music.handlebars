@@ -5,6 +5,23 @@
     <div></div>
 </div>
 <div class="container-fluid mt-2">
+    {{!-- search entry --}}
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="card bg-light shadow-dark" id="searchDiv">
+                <h1 class="text-dark" id="searchTitle">Search</h1>
+                <form action="/search" method="POST" class="search-form">
+                    <div class="mb-3">
+                        <label for="search" class="form-label text-dark" id="searchLabel">Search</label>
+                        <input type="text" class="form-control" id="search" name="search" required>
+                    </div>
+                    <button type="submit" class="btn btn-dark" id="searchBtn">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
     <div class="row">
         <div class="col-2">
             <div class="card bg-light shadow-dark" id="recentSongsDiv">

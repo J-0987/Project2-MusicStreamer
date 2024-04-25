@@ -26,6 +26,10 @@ router.get('/faq', (req, res) => {
     res.render('faq');
 });
 
+router.get('/music', (req, res) => {
+    res.render('music');
+});
+
 
 
 module.exports = router;
