@@ -20,7 +20,7 @@ Song.init(
             is: /^[a-zA-Z0-9\s\S]+$/ // Allows any type of data - numbers, letters, and special symbols
         }
     },
-    album: {
+    thumbnail: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -35,6 +35,8 @@ Song.init(
             model: 'artist',
             key: 'id',
         },
+
+
     },
 
     song_url: {
