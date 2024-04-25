@@ -2,43 +2,6 @@ const sequelize = require('../config/connection');
 const { Song, Playlist, PlaylistSong, User, Artist } = require('../models');
 const fetch = require('node-fetch');
 
-const songData = require('./songData.json');
-const playlistData = require('./playlistData.json');
-const userData = require('./userData.json');
-const artistData = require('./artistData.json');
-const playlistSongData = require('./playlistSongData.json');
-
-
-// const seedDatabase = async () => {
-//   await sequelize.sync({ force: true });
-
-//   console.log('Seeding database...');
-//   await User.bulkCreate(userData, {
-//     individualHooks: true,
-//     returning: true,
-//   });
-//   console.log('Users seeded');
-
-
-//   await Artist.bulkCreate(artistData);
-//   console.log('Artists seeded');
-
-//   await Song.bulkCreate(songData, {
-//     individualHooks: true,
-//     returning: true,
-//   });
-//   console.log('Songs seeded');
-
-//   await Playlist.bulkCreate(playlistData);
-//   console.log('Playlists seeded');
-
-// await PlaylistSong.bulkCreate(playlistSongData);
-// console.log('PlaylistSongs seeded');
-
-
-//   process.exit(0);
-// }
-
 
 
 //Seeding with youtube api API
@@ -49,56 +12,73 @@ const axios = require("axios");
 
 const baseApiUrl = "https://www.googleapis.com/youtube/v3/";
 
+const jacksonID = 'PL15ty5GYCv5u0_w7pusvZtUP225slLmRT';
+const thrillerID = "PLFAcddgaFN8zqIJrTakvM9qWnR7iIrXnj";
+const badID = "PLFAcddgaFN8y3B7psXuszfWU-_nev_QCd";
+const invincibleID = "OLAK5uy_n1DB1jMHqbSjp-xqh_CaiiYcgSVbUQfWw&index=2";
+const jackson5 = "PLU9GfqN_-WjVj10YaVlNCROVENtcFEe8s";
+const history = "PL15ty5GYCv5uDdbqMZNPVLeis1My2YV6O";
+const bgsnf = "PLJMN_UPGXcekhY9OQ5nU9tUgOHNuo_P75";
 
 
 
 async function fetchPlaylistVideos(playlistId) {
   try {
 
-    const playlistUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
+    const playlistUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=100&playlistId=${playlistId}&key=${apiKey}`;
 
     const response = await axios.get(playlistUrl);
-    console.log(response.data.items);
+    // console.log(response.data.items);
 
     // Extract video information from the response
     const videos = response.data.items.map(item => ({
-      "song_title": item.snippet.title.split("-")[1]||"N/A",
+      "song_title": item.snippet.title||"N/A",
       "song_url": `https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}`||"N/A",
       "thumbnail": (item.snippet.thumbnails && item.snippet.thumbnails.default) ? item.snippet.thumbnails.default.url : '', // Check if thumbnails exist before accessing
     }));
-    const artistName = response.data.items[0].snippet.videoOwnerChannelTitle;
+    const artistName = response.data.items[0].snippet.videoOwnerChannelTitle.split('- Topic')[0].trim();
     return { videos, artistName };
+
+    
   } catch (error) {
     console.error('Error fetching playlist:', error.message);
     return [];
   }
 }
 
-
 const seedDatabase = async () => {
   await sequelize.sync({ force: true });
 
+  const playlists = [bgsnf, thrillerID];
 
-  const missyID = 'PLb8PuWqgNQu-89AZG4OQCHSoDbYOe4AcJ';
-  fetchPlaylistVideos(missyID).then(({ videos, artistName }) => {
+  const fetches = playlists.map(async (playlist) => {
+    const { videos, artistName } = await fetchPlaylistVideos(playlist);
+    const artist = await Artist.create({ artist_name: artistName });
 
-  //  console.log('Missy Elliott playlist videos:', videos);
-   // console.log('Artist Name:', artistName);
-    Artist.create({ artist_name: artistName }).then(async (artistID) => {
+    const videoList = videos.map((video) => ({
+      ...video,
+      artist_id: artist.id,
+    }));
 
-      console.log('Miss Damina is in', artistID.id);
+    await Song.bulkCreate(videoList);
+    console.log('Songs seeded for artist:', artistName);
+  });
 
-      const videoList = videos.map(element => {
-      //  console.log({ ...element, artist_id: artistID.id })
-        return ({ ...element, "artist_id": artistID.id })
-    })
-    console.log(videoList)
+  try {
+    await Promise.all(fetches);
+    console.log('All playlists seeded');
+  } catch (error) {
+    console.error('Error seeding playlists:', error);
+  }
+};
 
-      await Song.bulkCreate(videoList);
-      console.log('Missy song seeded');
-    })
-  })
-}
+
+
+
+
+
+
+
 
 seedDatabase();
 
