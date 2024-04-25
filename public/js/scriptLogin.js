@@ -1,11 +1,14 @@
 
 function setTheme() {
     bgDiv = document.getElementById('backgroundDiv');
+    navBar = document.getElementById('navBar');
     loginDiv = document.getElementById('loginDiv');
     loginTitle = document.getElementById('loginTitle');
     loginButton = document.getElementById('loginButton');
     usernameLabel = document.getElementById('usernameLabel');
     passwordLabel = document.getElementById('passwordLabel');
+    themeButton = document.getElementById('themeButton');
+    loginBtn = document.getElementById('loginBtn');
 
     passwordLabelSignup = document.getElementById('passwordLabelSignup');
     usernameLabelSignup = document.getElementById('usernameLabelSignup');
@@ -14,15 +17,22 @@ function setTheme() {
     signupTitle = document.getElementById('signupTitle');
 
 
-    footerText = document.getElementById('footerText');
-    footerTwitter = document.getElementById('footerTwitter');
-    footerInsta = document.getElementById('footerInsta');
-    footerFacebook = document.getElementById('footerFacebook');
+    // footerText = document.getElementById('footerText');
+    // footerTwitter = document.getElementById('footerTwitter');
+    // footerInsta = document.getElementById('footerInsta');
+    // footerFacebook = document.getElementById('footerFacebook');
 
     if (localStorage.getItem('theme') === 'dark') {
 
         bgDiv.classList.remove('background');
         bgDiv.classList.add('background-dark');
+
+        navBar.classList.remove('navbar-light');
+        navBar.classList.add('navbar-dark');
+
+        themeButton.classList.remove('btn-dark');
+        themeButton.classList.add('btn-light');
+        themeButton.innerHTML = '<i class="bi bi-sun-fill"></i>';
 
         loginDiv.classList.remove('bg-light', 'shadow-dark');
         loginDiv.classList.add('bg-dark', 'shadow-light');
@@ -54,18 +64,28 @@ function setTheme() {
         signupTitle.classList.remove('text-dark');
         signupTitle.classList.add('text-light');
 
-        footerText.classList.remove('text-body-secondary');
-        footerTwitter.classList.remove('text-body-secondary');
-        footerInsta.classList.remove('text-body-secondary');
-        footerFacebook.classList.remove('text-body-secondary');
-        footerText.classList.add('text-secondary');
-        footerTwitter.classList.add('text-secondary');
-        footerInsta.classList.add('text-secondary');
-        footerFacebook.classList.add('text-secondary');
+        loginBtn.classList.remove('btn-dark');
+        loginBtn.classList.add('btn-light');
+
+        // footerText.classList.remove('text-body-secondary');
+        // footerTwitter.classList.remove('text-body-secondary');
+        // footerInsta.classList.remove('text-body-secondary');
+        // footerFacebook.classList.remove('text-body-secondary');
+        // footerText.classList.add('text-secondary');
+        // footerTwitter.classList.add('text-secondary');
+        // footerInsta.classList.add('text-secondary');
+        // footerFacebook.classList.add('text-secondary');
 
     } else {
         bgDiv.classList.remove('background-dark');
         bgDiv.classList.add('background');
+
+        navBar.classList.remove('navbar-dark');
+        navBar.classList.add('navbar-light');
+
+        themeButton.classList.remove('btn-light');
+        themeButton.classList.add('btn-dark');
+        themeButton.innerHTML = '<i class="bi bi-moon-fill"></i>';
 
         loginDiv.classList.remove('bg-dark', 'shadow-light');
         loginDiv.classList.add('bg-light', 'shadow-dark');
@@ -97,14 +117,17 @@ function setTheme() {
         signupTitle.classList.remove('text-light');
         signupTitle.classList.add('text-dark');
 
-        footerText.classList.remove('text-secondary');
-        footerTwitter.classList.remove('text-secondary');
-        footerInsta.classList.remove('text-secondary');
-        footerFacebook.classList.remove('text-secondary');
-        footerText.classList.add('text-body-secondary');
-        footerTwitter.classList.add('text-body-secondary');
-        footerInsta.classList.add('text-body-secondary');
-        footerFacebook.classList.add('text-body-secondary');
+        loginBtn.classList.remove('btn-light');
+        loginBtn.classList.add('btn-dark');
+
+        // footerText.classList.remove('text-secondary');
+        // footerTwitter.classList.remove('text-secondary');
+        // footerInsta.classList.remove('text-secondary');
+        // footerFacebook.classList.remove('text-secondary');
+        // footerText.classList.add('text-body-secondary');
+        // footerTwitter.classList.add('text-body-secondary');
+        // footerInsta.classList.add('text-body-secondary');
+        // footerFacebook.classList.add('text-body-secondary');
     }
 }
 
@@ -165,7 +188,22 @@ const signUpHandler = async (event) => {
 document
     .querySelector('.login-form')
     .addEventListener('submit', loginFormHandler);
-    
+
 document
     .querySelector('.signup-form')
     .addEventListener('submit', signUpHandler);
+
+
+themeButton = document.getElementById('themeButton');
+
+themeButton.onclick = function () {
+    if (localStorage.getItem('theme') === 'dark') {
+        localStorage.setItem('theme', 'light');
+    } else {
+        localStorage.setItem('theme', 'dark');
+    }
+    setTheme();
+}
+
+
+setTheme();
