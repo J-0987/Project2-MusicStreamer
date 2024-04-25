@@ -2,10 +2,10 @@
 function setTheme() {
     bgDiv = document.getElementById('backgroundDiv');
     navBar = document.getElementById('navBar');
-    footerText = document.getElementById('footerText');
-    footerTwitter = document.getElementById('footerTwitter');
-    footerInsta = document.getElementById('footerInsta');
-    footerFacebook = document.getElementById('footerFacebook');
+    // footerText = document.getElementById('footerText');
+    // footerTwitter = document.getElementById('footerTwitter');
+    // footerInsta = document.getElementById('footerInsta');
+    // footerFacebook = document.getElementById('footerFacebook');
     themeButton = document.getElementById('themeButton');
     loginButton = document.getElementById('loginButton');
     searchBtn = document.getElementById('searchBtn');
@@ -49,14 +49,14 @@ function setTheme() {
         createPlaylistTitle.classList.add('text-light');
         createPlaylistTitle.classList.remove('text-dark');
 
-        footerText.classList.remove('text-body-secondary');
-        footerTwitter.classList.remove('text-body-secondary');
-        footerInsta.classList.remove('text-body-secondary');
-        footerFacebook.classList.remove('text-body-secondary');
-        footerText.classList.add('text-secondary');
-        footerTwitter.classList.add('text-secondary');
-        footerInsta.classList.add('text-secondary');
-        footerFacebook.classList.add('text-secondary');
+        // footerText.classList.remove('text-body-secondary');
+        // footerTwitter.classList.remove('text-body-secondary');
+        // footerInsta.classList.remove('text-body-secondary');
+        // footerFacebook.classList.remove('text-body-secondary');
+        // footerText.classList.add('text-secondary');
+        // footerTwitter.classList.add('text-secondary');
+        // footerInsta.classList.add('text-secondary');
+        // footerFacebook.classList.add('text-secondary');
 
     } else { // light theme
         bgDiv.classList.remove('background-dark');
@@ -90,14 +90,14 @@ function setTheme() {
         createPlaylistTitle.classList.add('text-dark');
         createPlaylistTitle.classList.remove('text-light');
 
-        footerText.classList.remove('text-secondary');
-        footerTwitter.classList.remove('text-secondary');
-        footerInsta.classList.remove('text-secondary');
-        footerFacebook.classList.remove('text-secondary');
-        footerText.classList.add('text-body-secondary');
-        footerTwitter.classList.add('text-body-secondary');
-        footerInsta.classList.add('text-body-secondary');
-        footerFacebook.classList.add('text-body-secondary');
+        // footerText.classList.remove('text-secondary');
+        // footerTwitter.classList.remove('text-secondary');
+        // footerInsta.classList.remove('text-secondary');
+        // footerFacebook.classList.remove('text-secondary');
+        // footerText.classList.add('text-body-secondary');
+        // footerTwitter.classList.add('text-body-secondary');
+        // footerInsta.classList.add('text-body-secondary');
+        // footerFacebook.classList.add('text-body-secondary');
     }
 }
 
