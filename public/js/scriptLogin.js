@@ -7,6 +7,13 @@ function setTheme() {
     usernameLabel = document.getElementById('usernameLabel');
     passwordLabel = document.getElementById('passwordLabel');
 
+    passwordLabelSignup = document.getElementById('passwordLabelSignup');
+    usernameLabelSignup = document.getElementById('usernameLabelSignup');
+    singupDiv = document.getElementById('signupDiv');
+    signupBtn = document.getElementById('signupBtn');
+    signupTitle = document.getElementById('signupTitle');
+
+
     footerText = document.getElementById('footerText');
     footerTwitter = document.getElementById('footerTwitter');
     footerInsta = document.getElementById('footerInsta');
@@ -31,6 +38,21 @@ function setTheme() {
 
         passwordLabel.classList.remove('text-dark');
         passwordLabel.classList.add('text-light');
+
+        passwordLabelSignup.classList.remove('text-dark');
+        passwordLabelSignup.classList.add('text-light');
+
+        usernameLabelSignup.classList.remove('text-dark');
+        usernameLabelSignup.classList.add('text-light');
+
+        singupDiv.classList.remove('bg-light', 'shadow-dark');
+        singupDiv.classList.add('bg-dark', 'shadow-light');
+
+        signupBtn.classList.remove('btn-dark');
+        signupBtn.classList.add('btn-light');
+
+        signupTitle.classList.remove('text-dark');
+        signupTitle.classList.add('text-light');
 
         footerText.classList.remove('text-body-secondary');
         footerTwitter.classList.remove('text-body-secondary');
@@ -59,6 +81,21 @@ function setTheme() {
 
         passwordLabel.classList.remove('text-light');
         passwordLabel.classList.add('text-dark');
+
+        passwordLabelSignup.classList.remove('text-light');
+        passwordLabelSignup.classList.add('text-dark');
+
+        usernameLabelSignup.classList.remove('text-light');
+        usernameLabelSignup.classList.add('text-dark');
+
+        singupDiv.classList.remove('bg-dark', 'shadow-light');
+        singupDiv.classList.add('bg-light', 'shadow-dark');
+
+        signupBtn.classList.remove('btn-light');
+        signupBtn.classList.add('btn-dark');
+
+        signupTitle.classList.remove('text-light');
+        signupTitle.classList.add('text-dark');
 
         footerText.classList.remove('text-secondary');
         footerTwitter.classList.remove('text-secondary');
