@@ -89,5 +89,7 @@ setTheme();
 
 loginButton = document.getElementById('loginButton');
 loginButton.onclick = function () {
-    window.location.href = './login.html';
+    fetch('/login', {
+        method: 'GET',
+    });
 }
