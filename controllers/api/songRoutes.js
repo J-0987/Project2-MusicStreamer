@@ -38,8 +38,8 @@ router.get('/:id', async (req, res) => {
 
 // GET /api/songs/:title
 // Route to allow users to search database by song. Results displayed based on closest if not exact match. Search isn't case sensitive.
-router.get('/:title', async (req, res) => {
-
+router.get('/title/:title', async (req, res) => {
+    console.log('Searching for songs with title:', req.params.title); // Log the search query
 
     try {
         // Fetch the songs from the database that closely match the songTitle
@@ -50,6 +50,7 @@ router.get('/:title', async (req, res) => {
                 }
             }
         });
+        console.log('Found songs:', songs); // Log the found songs
 
         // If no songs were found, return a 404 error
         if (songs.length === 0) {
@@ -68,7 +69,8 @@ router.get('/:title', async (req, res) => {
 
 // GET /api/songs/:artist_name
 // get all songs by its artist_name
-router.get('/:artist_name', async (req, res) => {
+router.get('/artist_name/:artist_name', async (req, res) => {
+    console.log('Searching for songs by artist:', req.params.artist_name); // Log the search query
     try {
         // Fetch the songs from the database that belong to the artist
         const songs = await Song.findAll({
@@ -76,11 +78,12 @@ router.get('/:artist_name', async (req, res) => {
                 model: Artist,
                 where: {
                     artist_name: {
-                        [Op.iLike]: '%' + req.params.name + '%'
+                        [Op.iLike]: '%' + req.params.artist_name + '%'
                     }
                 }
             }]
         });
+        console.log('Found songs:', songs); // Log the found songs
 
         // If no songs were found, return a 404 error
         if (songs.length === 0) {
