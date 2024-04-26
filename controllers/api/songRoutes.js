@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 // GET /api/songs/:id
 // get a specific song by its id
 
-router.get('/api/songs/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         // Fetch the song from database using the id
         const song = await Song.findByPk(req.params.id);
@@ -38,7 +38,7 @@ router.get('/api/songs/:id', async (req, res) => {
 
 // GET /api/songs/:title
 // Route to allow users to search database by song. Results displayed based on closest if not exact match. Search isn't case sensitive.
-router.get('/api/songs/:title', async (req, res) => {
+router.get('/:title', async (req, res) => {
 
 
     try {
@@ -68,7 +68,7 @@ router.get('/api/songs/:title', async (req, res) => {
 
 // GET /api/songs/:artist_name
 // get all songs by its artist_name
-router.get('/api/songs/artist_name/:artist_name', async (req, res) => {
+router.get('/:artist_name', async (req, res) => {
     try {
         // Fetch the songs from the database that belong to the artist
         const songs = await Song.findAll({

@@ -44,12 +44,12 @@
         <div class="row align-items-start">
             <div class="col-4"></div>
             <div class="col-4">
+                {{#unless logged_in}}
                 <a class="btn btn-dark" id="signupBtn" href="/login">SIGN UP</a>
+                {{/unless}}
             </div>
             <div class="col-2"></div>
         </div>
     </div>
-    <button class="btn btn-dark mt-4" id="logoutBtn"><i class="bi bi-play-btn-fill"></i></button>
-
 </div>
 <script src="./js/scriptHome.js"></script>

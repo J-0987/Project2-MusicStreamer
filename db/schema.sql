@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS streamer_db;
+CREATE DATABASE streamer_db;
