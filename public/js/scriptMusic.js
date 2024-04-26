@@ -16,6 +16,9 @@ function setTheme() {
     browseMusicTitle = document.getElementById('browseMusicTitle');
     createPlaylistDiv = document.getElementById('createPlaylistDiv');
     createPlaylistTitle = document.getElementById('createPlaylistTitle');
+    browseCards = document.querySelectorAll('.browseCard');
+    recentCards = document.querySelectorAll('.recentCard');
+    playlistBtn = document.querySelectorAll('.playlistBtn');
 
     if (localStorage.getItem('theme') === 'dark') {
 
@@ -52,6 +55,21 @@ function setTheme() {
         createPlaylistDiv.classList.add('bg-dark', 'shadow-light');
         createPlaylistTitle.classList.add('text-light');
         createPlaylistTitle.classList.remove('text-dark');
+
+        browseCards.forEach(card => {
+            card.classList.remove('bg-light', 'shadow-dark');
+            card.classList.add('bg-dark', 'shadow-light');
+        });
+
+        recentCards.forEach(card => {
+            card.classList.remove('bg-light', 'shadow-dark');
+            card.classList.add('bg-dark', 'shadow-light');
+        });
+
+        playlistBtn.forEach(btn => {
+            btn.classList.remove('btn-dark');
+            btn.classList.add('btn-light');
+        });
 
         // footerText.classList.remove('text-body-secondary');
         // footerTwitter.classList.remove('text-body-secondary');
@@ -96,6 +114,21 @@ function setTheme() {
         createPlaylistDiv.classList.add('bg-light', 'shadow-dark');
         createPlaylistTitle.classList.add('text-dark');
         createPlaylistTitle.classList.remove('text-light');
+
+        browseCards.forEach(card => {
+            card.classList.remove('bg-dark', 'shadow-light');
+            card.classList.add('bg-light', 'shadow-dark');
+        });
+
+        recentCards.forEach(card => {
+            card.classList.remove('bg-dark', 'shadow-light');
+            card.classList.add('bg-light', 'shadow-dark');
+        });
+
+        playlistBtn.forEach(btn => {
+            btn.classList.remove('btn-light');
+            btn.classList.add('btn-dark');
+        });
 
         // footerText.classList.remove('text-secondary');
         // footerTwitter.classList.remove('text-secondary');

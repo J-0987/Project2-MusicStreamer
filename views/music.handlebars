@@ -26,7 +26,7 @@
                 <h1 class="text-dark" id="recentSongsTitle">Recent Songs</h1>
                 <!-- Song Cards -->
                 {{#each songs as |song|}}
-                <div class="card m-3">
+                <div class="card m-3 recentCard">
                     <div class="row g-0">
                         <div class="col-md-4">
                             <img src="{{song.thumbnail}}" class="img-fluid rounded-start m-1" alt="...">
@@ -39,9 +39,7 @@
                             </div>
                         </div>
                         <div class="col-3">
-                            <button class="btn btn-dark mt-4" id="playButton"><i
-                                    class="bi bi-play-btn-fill"></i></button>
-                            <button class="btn btn-dark mt-4" id="playlistButton"><i
+                            <button class="btn btn-dark m-3 playlistBtn" id="playlistButton"><i
                                     class="bi bi-music-note-list"></i></button>
                         </div>
                     </div>
@@ -55,7 +53,7 @@
                 <h1 class="text-dark" id="browseMusicTitle">Browse Music</h1>
                 <!-- Browse Music Cards -->
                 {{#each songs as |song|}}
-                <div class="card m-3">
+                <div class="card m-3 browseCard">
                     <div class="row g-0">
                         <div class="col-md-2">
                             <div class="plyr__video-embed" id="player">
@@ -73,9 +71,7 @@
                             </div>
                         </div>
                         <div class="col-2">
-                            <button class="btn btn-dark btn-lg m-5" id="playButton"><i
-                                    class="bi bi-play-btn-fill"></i></button>
-                            <button class="btn btn-dark btn-lg" id="playlistButton"><i
+                            <button class="btn btn-dark btn-lg m-5 playlistBtn" id="playlistButton"><i
                                     class="bi bi-music-note-list"></i></button>
                         </div>
                     </div>
