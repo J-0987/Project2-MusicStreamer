@@ -1,14 +1,22 @@
 const router = require('express').Router();
-const { Playlist, Song, User } = require('../../models');
+const { Playlist, Song, User, Artist } = require('../../models');
 
 
 // GET /api/playlists
 // get all playlists
 router.get('/', async (req, res) => {
   try {
-    const playlistData = await Playlist.findAll();
+    const playlistData = await Playlist.findAll({
+      include: [{
+        model: {Song, User, Song, Artist},
+      
+      }]
+  });
 
-    res.status(200).json(playlistData);
+  const playlists = playlistData.map((playlist) => playlist.get({ plain: true }));
+
+  console.log('Found playlists:', playlists); // Log the found playlists
+    res.status(200).json(playlists);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -66,18 +74,6 @@ router.post('/:playlist_name', async (req, res) => {
 });
 
 
-router.post('/', async (req, res) => {
-  try {
-    const playlistData = await Playlist.create({
-      playlist_name: req.body.playlist_name,
-      user_id: req.body.user_id,
-    });
-
-    res.status(200).json(playlistData);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-});
 
 // DELETE a playlist
 router.delete('/:playlist_name', async (req, res) => {

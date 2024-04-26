@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { User, Song, Playlist, Artist } = require('../models');
 const withAuth = require('../utils/auth');
 
+
 // TODO: Add a comment describing the functionality of the withAuth middleware
 // checks to see if the user is logged in before allowing them to access the route
 router.get('/', (req, res) => {
@@ -41,15 +42,20 @@ router.get('/music', async (req, res) => {
                 model: Artist,
                 attributes: ['artist_name'] // Only include the artist_name attribute
             }]
+
+            
         });
-        const songs = songsData.map(song => song.get({ plain: true }));
+        const songs = songData.map((song) => song.get({ plain: true }));
+        console.log(songs[0]);
+        
         // Render the 'music' view and pass the playlists and songs
-        res.render('music', { songs, loggedIn: req.session.loggedIn });
+        res.render('music', { songs});
+
     } catch (err) {
         // If there was an error, return a 500 error
         res.status(500).send(err.message);
     }
-
 });
+
 
 module.exports = router;
