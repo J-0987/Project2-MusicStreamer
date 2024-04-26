@@ -26,7 +26,7 @@ router.get('/faq', (req, res) => {
     res.render('faq', {logged_in: req.session.logged_in});
 });
 
-router.get('/music', withAuth, async (req, res) => {
+router.get('/music', async (req, res) => {
 
     try {
         // Fetch the user's playlists from the database
@@ -36,8 +36,8 @@ router.get('/music', withAuth, async (req, res) => {
         });
 
         // Fetch all songs from the database
-        const songs = await Song.findAll();
-
+        const songsData = await Song.findAll();
+        const songs = songsData.map(song => song.get({ plain: true }));
         // Render the 'music' view and pass the playlists and songs
         res.render('music', { playlists, songs, loggedIn: req.session.loggedIn });
     } catch (err) {
