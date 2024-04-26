@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User } = require('../models');
+const withAuth = require('../utils/auth');
 
 // TODO: Add a comment describing the functionality of the withAuth middleware
 // checks to see if the user is logged in before allowing them to access the route
@@ -26,7 +27,7 @@ router.get('/faq', (req, res) => {
 });
 
 router.get('/music', (req, res) => {
-    res.render('music', {logged_in: req.session.logged_in});
+    res.render('music');
 });
 
 
