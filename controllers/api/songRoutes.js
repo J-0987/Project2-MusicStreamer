@@ -6,9 +6,18 @@ const { Op } = require('sequelize'); // Import the Op object from Sequelize
 // get all songs
 router.get('/', async (req, res) => {
   try {
-    const songData = await Song.findAll();
+    const songData = await Song.findAll({
+        include: [{
+            model: Artist,
+            attributes: ['artist_name'] // Only include the artist_name attribute
+        }]
 
-    res.status(200).json(songData);
+
+        
+    });
+    const songs = songData.map((song) => song.get({ plain: true }));
+
+    res.status(200).json(songs);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -43,14 +52,18 @@ router.get('/title/:title', async (req, res) => {
 
     try {
         // Fetch the songs from the database that closely match the songTitle
-        const songs = await Song.findAll({
+        const songData = await Song.findAll({
             where: {
                 song_title: {
                     [Op.iLike]: '%' + req.params.title + '%'
                 }
             }
         });
+
+        const songs = songData.map((song) => song.get({ plain: true }));
+
         console.log('Found songs:', songs); // Log the found songs
+
 
         // If no songs were found, return a 404 error
         if (songs.length === 0) {
@@ -58,7 +71,7 @@ router.get('/title/:title', async (req, res) => {
         }
 
         // Send the songs in the response
-        res.render('songs', { songs }); // Render the songs template and pass in the songs data
+
         res.json(songs);
     } catch (err) {
         // If there was an error, return a 500 error
