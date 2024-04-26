@@ -22,6 +22,7 @@ const f2 = "PL32gHfWMCrxMvlIuXxTbxKOPAARMDS4jE";
 const taylor = "PLINj2JJM1jxNOvEFIABOBa6OmURYOxOk3"
 const taylorv = "PLINj2JJM1jxNeeZ9lih8SNd_NJEkA22u0";
 const adele = "PLxgEqpZ1Pdg_2WCDSv8kH6gM1hXWUTpti";
+const livingEyesId = "PLbR9X6YVuIRVqpsiGu0MAHrdGCErqWYuG";
 
 
 
@@ -52,7 +53,7 @@ async function fetchPlaylistVideos(playlistId) {
 const seedDatabase = async () => {
   await sequelize.sync({ force: true });
 
-  const playlists = [vthrillerID, vdangerousID, bgHitsID, vbad, f1, f2, adele, taylor, taylorv];
+  const playlists = [vthrillerID, vdangerousID, bgHitsID, vbad, f1, f2, adele, taylor, taylorv, livingEyesId];
 
   // Fetch all playlists and get unique artists
   const fetchedPlaylists = await Promise.all(playlists.map(fetchPlaylistVideos));
