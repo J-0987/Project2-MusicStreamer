@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../models');
+const { User, Song, Playlist } = require('../models');
 const withAuth = require('../utils/auth');
 
 // TODO: Add a comment describing the functionality of the withAuth middleware
@@ -45,7 +45,6 @@ router.get('/music', withAuth, async (req, res) => {
         res.status(500).send(err.message);
     }
 
-
-
+});
 
 module.exports = router;

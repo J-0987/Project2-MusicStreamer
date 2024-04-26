@@ -25,16 +25,16 @@
             <div class="card bg-light shadow-dark" id="recentSongsDiv">
                 <h1 class="text-dark" id="recentSongsTitle">Recent Songs</h1>
                 <!-- Song Cards -->
+                {{#each songs as |song|}}
                 <div class="card m-3">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="https://img.youtube.com/vi/N9bKBAA22Go/mqdefault.jpg"
-                                class="img-fluid rounded-start m-1" alt="...">
+                            <img src="{{song.thumbnail}}" class="img-fluid rounded-start m-1" alt="...">
                         </div>
                         <div class="col-md-5">
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Artist Name</p>
+                                <h5 class="card-title">{{song.song_title}}</h5>
+                                <p class="card-text">{{song.artist_id}}</p>
                                 <!-- <p class="card-text"><small class="text-body-secondary">Date or Album</small></p> -->
                             </div>
                         </div>
@@ -46,48 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card m-3">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://img.youtube.com/vi/-kSAvHlXRUs/mqdefault.jpg"
-                                class="img-fluid rounded-start m-1" alt="...">
-                        </div>
-                        <div class="col-md-5">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Artist Name</p>
-                                <!-- <p class="card-text"><small class="text-body-secondary">Date or Album</small></p> -->
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <button class="btn btn-dark mt-4" id="playButton"><i
-                                    class="bi bi-play-btn-fill"></i></button>
-                            <button class="btn btn-dark mt-4" id="playlistButton"><i
-                                    class="bi bi-music-note-list"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card m-3">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://img.youtube.com/vi/H8E0WIy_vFc/mqdefault.jpg"
-                                class="img-fluid rounded-start m-1" alt="...">
-                        </div>
-                        <div class="col-md-5">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Artist Name</p>
-                                <!-- <p class="card-text"><small class="text-body-secondary">Date or Album</small></p> -->
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <button class="btn btn-dark mt-4" id="playButton"><i
-                                    class="bi bi-play-btn-fill"></i></button>
-                            <button class="btn btn-dark mt-4" id="playlistButton"><i
-                                    class="bi bi-music-note-list"></i></button>
-                        </div>
-                    </div>
-                </div>
+                {{/each}}
             </div>
         </div>
         <!-- Browse Music -->
@@ -95,17 +54,22 @@
             <div class="card bg-light shadow-dark" id="browseMusicDiv">
                 <h1 class="text-dark" id="browseMusicTitle">Browse Music</h1>
                 <!-- Browse Music Cards -->
+                {{#each songs as |song|}}
                 <div class="card m-3">
                     <div class="row g-0">
                         <div class="col-md-2">
-                            <img src="https://img.youtube.com/vi/N9bKBAA22Go/mqdefault.jpg"
-                                class="img-fluid rounded-start" alt="...">
+                            <div class="plyr__video-embed" id="player">
+                                {{!-- <iframe
+                                    src="{{song.song_url}}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
+                                    allowfullscreen allowtransparency allow="autoplay"></iframe> --}}
+                            </div>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Artist Name</p>
-                                <p class="card-text"><small class="text-body-secondary">Date or Album</small></p>
+                                <h5 class="card-title">{{song.song_title}}</h5>
+                                <p class="card-text">{{song.artist_id}}</p>
+                                {{!-- <p class="card-text"><small class="text-body-secondary">Date or Album</small></p>
+                                --}}
                             </div>
                         </div>
                         <div class="col-2">
@@ -116,56 +80,28 @@
                         </div>
                     </div>
                 </div>
-                <div class="card m-3">
-                    <div class="row g-0">
-                        <div class="col-md-2">
-                            <img src="https://img.youtube.com/vi/-kSAvHlXRUs/mqdefault.jpg"
-                                class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Artist Name</p>
-                                <p class="card-text"><small class="text-body-secondary">Date or Album</small></p>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <button class="btn btn-dark btn-lg m-5" id="playButton"><i
-                                    class="bi bi-play-btn-fill"></i></button>
-                            <button class="btn btn-dark btn-lg" id="playlistButton"><i
-                                    class="bi bi-music-note-list"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card m-3">
-                    <div class="row g-0">
-                        <div class="col-md-2">
-                            <img src="https://img.youtube.com/vi/H8E0WIy_vFc/mqdefault.jpg"
-                                class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Artist Name</p>
-                                <p class="card-text"><small class="text-body-secondary">Date or Album</small></p>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <button class="btn btn-dark btn-lg m-5" id="playButton"><i
-                                    class="bi bi-play-btn-fill"></i></button>
-                            <button class="btn btn-dark btn-lg" id="playlistButton"><i
-                                    class="bi bi-music-note-list"></i></button>
-                        </div>
-                    </div>
-                </div>
+                {{/each}}
             </div>
         </div>
         <div class="col-2">
             <div class="card bg-light shadow-dark" id="createPlaylistDiv">
-                <h1 class="text-dark" id="createPlaylistTitle">Create Playlist</h1>
+                <h1 class="text-dark" id="createPlaylistTitle">Playlists</h1>
+                <!-- Playlist Cards -->
+                {{#each playlists as |playlist|}}
+                <div class="card m-3">
+                    <div class="row g-0">
+                        <div class="col-md-8">
+                            <h5 class="card-title">{{playlist.playlist_name}}</h5>
+                            <div class=" card-body">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            {{/each}}
         </div>
     </div>
+</div>
 
 </div>
 <script src="./js/scriptMusic.js"></script>
