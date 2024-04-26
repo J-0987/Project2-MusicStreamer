@@ -37,7 +37,7 @@ router.get('/music', async (req, res) => {
         // });
 
         // Fetch all songs from the database
-        const songsData = await Song.findAll({
+        const songData = await Song.findAll({
             include: [{
                 model: Artist,
                 attributes: ['artist_name'] // Only include the artist_name attribute
