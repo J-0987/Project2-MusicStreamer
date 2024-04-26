@@ -36,7 +36,7 @@ Playlist.init(
         },  
         song_id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             references: {
                 model: 'song',
                 key: 'id',
@@ -44,7 +44,7 @@ Playlist.init(
         },
         artist_id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             references: {
                 model: 'artist',
                 key: 'id',
@@ -53,7 +53,7 @@ Playlist.init(
     },
         {
         sequelize,
-        timestamps: false,
+        timestamps: true,
         freezeTableName: true,
         underscored: true,
         modelName: 'playlist',
