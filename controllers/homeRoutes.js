@@ -11,7 +11,7 @@ router.get('/login', (req, res) => {
     // TODO: Add a comment describing the functionality of this if statement
     // checks if the user is logged in and redirects them to the homepage if they are
     if (req.session.logged_in) {
-        res.redirect('/');
+        res.redirect('music');
         return;
     }
 
