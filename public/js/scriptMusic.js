@@ -161,3 +161,11 @@ setTheme();
 // loginButton.onclick = function () {
 //     window.location.href = './login.html';
 // }
+
+searchInput = document.getElementById('searchInput');
+searchBtn = document.getElementById('searchBtn');
+searchBtn.onclick = function () {
+    fetch('/api/songs/' + searchInput.value, {
+        method: 'GET',
+    });
+}

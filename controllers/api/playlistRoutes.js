@@ -38,8 +38,11 @@ router.get('/playlist/:username', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const playlistData = await Playlist.create({
-      playlist_name: req.body.playlist_name,
       user_id: req.body.user_id,
+      playlist_name: req.body.playlist_name,
+      description: req.body.description,
+  
+    
     });
 
     res.status(200).json(playlistData);
