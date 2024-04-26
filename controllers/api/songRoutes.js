@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Song, Artist } = require('../../models');
+const { Op } = require('sequelize'); // Import the Op object from Sequelize
 
 // GET /api/songs
 // get all songs
@@ -13,80 +14,81 @@ router.get('/', async (req, res) => {
   }
 });
 
+// GET /api/songs/:id
+// get a specific song by its id
+
+router.get('/api/songs/:id', async (req, res) => {
+    try {
+        // Fetch the song from database using the id
+        const song = await Song.findByPk(req.params.id);
+
+        // If the song was not found, return a 404 error
+        if (!song) {
+            return res.status(404).send('Song not found');
+        }
+
+        // Send the entire song object in the response
+        res.json(song);
+    } catch (err) {
+        // If there was an error, return a 500 error
+        res.status(500).send(err.message);
+    }
+});
+
+
 // GET /api/songs/:title
-// get a specific song by its title
+// Route to allow users to search database by song. Results displayed based on closest if not exact match. Search isn't case sensitive.
 router.get('/api/songs/:title', async (req, res) => {
 
 
     try {
-        // Fetch the song from database using the songTitle
-        const song = await Song.findOne({ where: { song_title:req.params.title} });
+        // Fetch the songs from the database that closely match the songTitle
+        const songs = await Song.findAll({
+            where: {
+                song_title: {
+                    [Op.iLike]: '%' + req.params.title + '%'
+                }
+            }
+        });
 
-        // If the song was not found, return a 404 error
-        if (!song) {
-            return res.status(404).send('Song not found');
+        // If no songs were found, return a 404 error
+        if (songs.length === 0) {
+            return res.status(404).send('No songs found');
         }
 
-        // Send the entire song object in the response
-        res.json(song);
+        // Send the songs in the response
+        res.render('songs', { songs }); // Render the songs template and pass in the songs data
+        res.json(songs);
     } catch (err) {
         // If there was an error, return a 500 error
         res.status(500).send(err.message);
     }
 });
 
-// GET /api/songs/:album
-// get all songs by its album
-router.get('/api/songs/:album', async (req, res) => {
-    try {
-        // Fetch all songs from database using the album
-        const songs = await Song.findAll({ where: { album: req.params.album } });
-
-        // If the song was not found, return a 404 error
-        if (!song) {
-            return res.status(404).send('Song not found');
-        }
-
-        // Send the entire song object in the response
-        res.json(song);
-    } catch (err) {
-        // If there was an error, return a 500 error
-        res.status(500).send(err.message);
-    }
-});
 
 // GET /api/songs/:artist_name
 // get all songs by its artist_name
 router.get('/api/songs/artist_name/:artist_name', async (req, res) => {
     try {
-        // Fetch all songs from database using the artist_name.
-       
+        // Fetch the songs from the database that belong to the artist
         const songs = await Song.findAll({
-            include: [
-                {
-                    model: Artist,
-                    where: { artist_name: req.params.artist_name }
+            include: [{
+                model: Artist,
+                where: {
+                    artist_name: {
+                        [Op.iLike]: '%' + req.params.name + '%'
+                    }
                 }
-            ]
-        });
-   // If the song was not found, return a 404 error
-   if (!song) {
-    return res.status(404).send('Song not found');
-}
-
-// Map over the songs array and create a new object for each song
-        // that only includes the title, artist, and song_url properties
-        const songsData = songs.map(song => {
-            return {
-                title: song.title,
-                // ? song.Artist.artist_name or song.artist_name??
-                artist: song.Artist.artist_name, // Access the artist_name property from the Artist model
-                song_url: song.song_url
-            };
+            }]
         });
 
-        // Send the songs data in the response
-        res.json(songsData);
+        // If no songs were found, return a 404 error
+        if (songs.length === 0) {
+            return res.status(404).send('No songs found');
+        }
+
+        // Send the songs in the response
+        res.json(songs);
 }
 catch (err) {
 // If there was an error, return a 500 error

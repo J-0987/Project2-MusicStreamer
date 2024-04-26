@@ -76,6 +76,25 @@ router.post('/', async (req, res) => {
   }
 });
 
+// DELETE a playlist
+router.delete('/:playlist_name', async (req, res) => {
+  try {
+    const playlistData = await Playlist.destroy({
+      where: {
+        playlist_name: req.params.playlist_name,
+      },
+    });
+
+    if (!playlistData) {
+      res.status(404).json({ message: 'No playlist found with that name!' });
+      return;
+    }
+
+    res.status(200).json(playlistData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 router.get('/:playlist_name', async (req, res) => {
   try {
@@ -95,7 +114,7 @@ router.get('/:playlist_name', async (req, res) => {
 });
 
 module.exports = router;
-//POST add song to playlist. user chooses a song and adds it to playlist
+
 
 
 
