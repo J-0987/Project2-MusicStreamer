@@ -57,7 +57,11 @@ router.get('/title/:title', async (req, res) => {
                 song_title: {
                     [Op.iLike]: '%' + req.params.title + '%'
                 }
-            }
+            },
+            include: [{
+                model: Artist,
+                attributes: ['artist_name'] // Only include the artist_name attribute
+            }]
         });
 
         const songs = songData.map((song) => song.get({ plain: true }));

@@ -1,4 +1,5 @@
 
+
 function setTheme() {
     bgDiv = document.getElementById('backgroundDiv');
     navBar = document.getElementById('navBar');
@@ -164,8 +165,49 @@ setTheme();
 
 searchInput = document.getElementById('searchInput');
 searchBtn = document.getElementById('searchBtn');
-searchBtn.onclick = function () {
-    fetch('/api/songs/' + searchInput.value, {
+searchBtn.onclick = async function (event) {
+    event.preventDefault();
+    await fetch(('/api/songs/title/' + searchInput.value), {
         method: 'GET',
-    });
+    }, { headers: { 'Content-Type': 'application/json' } })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            let maxLength;
+            if (data.length < 5) {
+                maxLength = data.length;
+            } else {
+                maxLength = 5;
+            }
+            for (let i = 0; i < maxLength; i++) {
+                let browseCard = browseMusicDiv.appendChild(document.createElement('div'));
+                browseCard.classList.add('card', 'm-3', 'browseCard');
+                let browseCardRow = browseCard.appendChild(document.createElement('div'));
+                browseCardRow.classList.add('row', 'g-0');
+                let colMed2 = browseCardRow.appendChild(document.createElement('div'));
+                colMed2.classList.add('col-md-2');
+                let img = colMed2.appendChild(document.createElement('img'));
+                img.src = data[i].thumbnail;
+                img.classList.add('img-fluid', 'rounded-start', 'm-1');
+                let colMed8 = browseCardRow.appendChild(document.createElement('div'));
+                colMed8.classList.add('col-md-8');
+                let colMed8Body = colMed8.appendChild(document.createElement('div'));
+                colMed8Body.classList.add('card-body');
+                let colMed8Title = colMed8Body.appendChild(document.createElement('h5'));
+                colMed8Title.classList.add('card-title');
+                colMed8Title.innerHTML = data[i].song_title;
+                let colMed8Text = colMed8Body.appendChild(document.createElement('p'));
+                colMed8Text.classList.add('card-text');
+                colMed8Text.innerHTML = data[i].artist.artist_name;
+                let col2 = browseCardRow.appendChild(document.createElement('div'));
+                col2.classList.add('col-2');
+                let playBtn = col2.appendChild(document.createElement('button'));
+                playBtn.classList.add('btn', 'btn-dark', 'playlistBtn', 'm-3');
+                playBtn.appendChild(document.createElement('i')).classList.add('bi', 'bi-music-note-list');
+            }
+
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }

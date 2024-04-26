@@ -26,7 +26,6 @@
                 <h1 class="text-dark" id="recentSongsTitle">Recent Songs</h1>
                 <!-- Song Cards -->
                 {{#each songs as |song|}}
-
                     {{#ifCond @index '<' 6}} 
                     <div class="card m-3 recentCard">
                         <div class="row g-0">
@@ -57,7 +56,7 @@
             <div class="card bg-light shadow-dark" id="browseMusicDiv">
                 <h1 class="text-dark" id="browseMusicTitle">Browse Music</h1>
                 <!-- Browse Music Cards -->
-                {{#each songs as |song|}}
+                {{!-- {{#each songs as |song|}}
                     {{#ifCond @index '<' 5}}
                         <div class="card m-3 browseCard">
                             <div class="row g-0">
@@ -84,7 +83,7 @@
                             </div>
                         </div>
                     {{/ifCond}}
-                {{/each}}
+                {{/each}} --}}
             </div>
         </div>
         <div class="col-2">
