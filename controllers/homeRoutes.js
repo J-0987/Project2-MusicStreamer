@@ -44,7 +44,7 @@ router.get('/music', withAuth, async (req, res) => {
         // If there was an error, return a 500 error
         res.status(500).send(err.message);
     }
-});
+
 
 
 
