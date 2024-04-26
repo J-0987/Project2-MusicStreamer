@@ -9,6 +9,7 @@ function setTheme() {
     themeButton = document.getElementById('themeButton');
     loginButton = document.getElementById('loginButton');
     searchBtn = document.getElementById('searchBtn');
+    searchDiv = document.getElementById('searchDiv')
     recentSongsDiv = document.getElementById('recentSongsDiv');
     recentSongsTitle = document.getElementById('recentSongsTitle');
     browseMusicDiv = document.getElementById('browseMusicDiv');
@@ -34,7 +35,10 @@ function setTheme() {
         searchBtn.classList.remove('btn-dark');
         searchBtn.classList.add('btn-light');
 
-        recentSongsDiv.classList.remove('bg-lightk', 'shadow-dark');
+        searchDiv.classList.remove('bg-light', 'shadow-dark');
+        searchDiv.classList.add('bg-dark', 'shadow-light');
+
+        recentSongsDiv.classList.remove('bg-light', 'shadow-dark');
         recentSongsDiv.classList.add('bg-dark', 'shadow-light');
         recentSongsTitle.classList.add('text-light');
         recentSongsTitle.classList.remove('text-dark');
@@ -74,6 +78,9 @@ function setTheme() {
 
         searchBtn.classList.remove('btn-light');
         searchBtn.classList.add('btn-dark');
+
+        searchDiv.classList.remove('bg-dark', 'shadow-light');
+        searchDiv.classList.add('bg-light', 'shadow-dark');
 
         recentSongsDiv.classList.remove('bg-dark', 'shadow-light');
         recentSongsDiv.classList.add('bg-light', 'shadow-dark');
