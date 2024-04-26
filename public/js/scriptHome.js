@@ -29,8 +29,10 @@ function setTheme() {
         loginButton.classList.remove('btn-dark');
         loginButton.classList.add('btn-light');
 
-        signupBtn.classList.remove('btn-dark');
-        signupBtn.classList.add('btn-light');
+        if (signupBtn) {
+            signupBtn.classList.remove('btn-dark');
+            signupBtn.classList.add('btn-light');
+        }
 
         // footerText.classList.remove('text-body-secondary');
         // footerTwitter.classList.remove('text-body-secondary');
@@ -58,8 +60,10 @@ function setTheme() {
         loginButton.classList.remove('btn-light');
         loginButton.classList.add('btn-dark');
 
-        signupBtn.classList.remove('btn-light');
-        signupBtn.classList.add('btn-dark');
+        if (signupBtn) {
+            signupBtn.classList.remove('btn-light');
+            signupBtn.classList.add('btn-dark');
+        }
 
         // footerText.classList.remove('text-secondary');
         // footerTwitter.classList.remove('text-secondary');
@@ -93,3 +97,21 @@ loginButton.onclick = function () {
         method: 'GET',
     });
 }
+
+
+// const logoutBtn = document.getElementById('loginButton');
+// const logoutHandler = async () => {
+//     if (logoutBtn.textContent === 'Log Out') {
+//         const response = await fetch('/api/users/logout', {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//         });
+
+//         if (response.ok) {
+//             document.location.replace('/');
+//         }
+//     }
+// }
+
+
+// logoutBtn.onclick = logoutHandler;
