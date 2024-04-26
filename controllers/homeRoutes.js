@@ -1,10 +1,6 @@
 const router = require('express').Router();
-
-const { User } = require('../models');
-const {Song } = require('../models');
-const {Playlist } = require('../models');
+const { User, Song, Playlist, Artist } = require('../models');
 const withAuth = require('../utils/auth');
-const { Artist } = require('../models');
 
 
 
@@ -46,35 +42,17 @@ router.get('/music',  async (req, res) => {
                 model: Artist,
                 attributes: ['artist_name'] // Only include the artist_name attribute
             }]
-
-
             
         });
         const songs = songData.map((song) => song.get({ plain: true }));
         console.log(songs[0]);
         
-
         // Render the 'music' view and pass the playlists and songs
         res.render('music', { songs});
     } catch (err) {
         // If there was an error, return a 500 error
         res.status(500).send(err.message);
     }
-});
-
-
-
-        // Fetch all songs from the database
-        const songsData = await Song.findAll();
-        const songs = songsData.map(song => song.get({ plain: true }));
-        // Render the 'music' view and pass the playlists and songs
-        res.render('music', { playlists, songs, loggedIn: req.session.loggedIn });
-    } catch (err) {
-        // If there was an error, return a 500 error
-        console.log(err);
-        res.status(500).send(err.message);
-    }
-
 });
 
 
