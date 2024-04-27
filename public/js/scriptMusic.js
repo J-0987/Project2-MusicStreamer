@@ -20,6 +20,8 @@ function setTheme() {
     browseCards = document.querySelectorAll('.browseCard');
     recentCards = document.querySelectorAll('.recentCard');
     playlistBtn = document.querySelectorAll('.playlistBtn');
+    cardText = document.querySelectorAll('.card-text');
+    cardTitle = document.querySelectorAll('.card-title');
 
     if (localStorage.getItem('theme') === 'dark') {
 
@@ -70,6 +72,16 @@ function setTheme() {
         playlistBtn.forEach(btn => {
             btn.classList.remove('btn-dark');
             btn.classList.add('btn-light');
+        });
+
+        cardText.forEach(text => {
+            text.classList.remove('text-dark');
+            text.classList.add('text-light');
+        });
+
+        cardTitle.forEach(title => {
+            title.classList.remove('text-dark');
+            title.classList.add('text-light');
         });
 
         // footerText.classList.remove('text-body-secondary');
@@ -131,6 +143,16 @@ function setTheme() {
             btn.classList.add('btn-dark');
         });
 
+        cardText.forEach(text => {
+            text.classList.remove('text-light');
+            text.classList.add('text-dark');
+        });
+
+        cardTitle.forEach(title => {
+            title.classList.remove('text-light');
+            title.classList.add('text-dark');
+        });
+
         // footerText.classList.remove('text-secondary');
         // footerTwitter.classList.remove('text-secondary');
         // footerInsta.classList.remove('text-secondary');
@@ -179,32 +201,62 @@ searchBtn.onclick = async function (event) {
             } else {
                 maxLength = 5;
             }
-            for (let i = 0; i < maxLength; i++) {
-                let browseCard = browseMusicDiv.appendChild(document.createElement('div'));
-                browseCard.classList.add('card', 'm-3', 'browseCard');
-                let browseCardRow = browseCard.appendChild(document.createElement('div'));
-                browseCardRow.classList.add('row', 'g-0');
-                let colMed2 = browseCardRow.appendChild(document.createElement('div'));
-                colMed2.classList.add('col-md-2');
-                let img = colMed2.appendChild(document.createElement('img'));
-                img.src = data[i].thumbnail;
-                img.classList.add('img-fluid', 'rounded-start', 'm-1');
-                let colMed8 = browseCardRow.appendChild(document.createElement('div'));
-                colMed8.classList.add('col-md-8');
-                let colMed8Body = colMed8.appendChild(document.createElement('div'));
-                colMed8Body.classList.add('card-body');
-                let colMed8Title = colMed8Body.appendChild(document.createElement('h5'));
-                colMed8Title.classList.add('card-title');
-                colMed8Title.innerHTML = data[i].song_title;
-                let colMed8Text = colMed8Body.appendChild(document.createElement('p'));
-                colMed8Text.classList.add('card-text');
-                colMed8Text.innerHTML = data[i].artist.artist_name;
-                let col2 = browseCardRow.appendChild(document.createElement('div'));
-                col2.classList.add('col-2');
-                let playBtn = col2.appendChild(document.createElement('button'));
-                playBtn.classList.add('btn', 'btn-dark', 'playlistBtn', 'm-3');
-                playBtn.appendChild(document.createElement('i')).classList.add('bi', 'bi-music-note-list');
+            if (localStorage.getItem('theme') === 'dark') {
+                for (let i = 0; i < maxLength; i++) {
+                    let browseCard = browseMusicDiv.appendChild(document.createElement('div'));
+                    browseCard.classList.add('card', 'm-3', 'browseCard', 'bg-dark', 'shadow-light');
+                    let browseCardRow = browseCard.appendChild(document.createElement('div'));
+                    browseCardRow.classList.add('row', 'g-0');
+                    let colMed2 = browseCardRow.appendChild(document.createElement('div'));
+                    colMed2.classList.add('col-md-2');
+                    let img = colMed2.appendChild(document.createElement('img'));
+                    img.src = data[i].thumbnail;
+                    img.classList.add('img-fluid', 'rounded-start', 'm-1');
+                    let colMed8 = browseCardRow.appendChild(document.createElement('div'));
+                    colMed8.classList.add('col-md-8');
+                    let colMed8Body = colMed8.appendChild(document.createElement('div'));
+                    colMed8Body.classList.add('card-body', 'text-light');
+                    let colMed8Title = colMed8Body.appendChild(document.createElement('h5'));
+                    colMed8Title.classList.add('card-title', 'text-light');
+                    colMed8Title.innerHTML = data[i].song_title;
+                    let colMed8Text = colMed8Body.appendChild(document.createElement('p'));
+                    colMed8Text.classList.add('card-text', 'text-light');
+                    colMed8Text.innerHTML = data[i].artist.artist_name;
+                    let col2 = browseCardRow.appendChild(document.createElement('div'));
+                    col2.classList.add('col-2');
+                    let playBtn = col2.appendChild(document.createElement('button'));
+                    playBtn.classList.add('btn', 'btn-light', 'playlistBtn', 'm-3');
+                    playBtn.appendChild(document.createElement('i')).classList.add('bi', 'bi-music-note-list');
+                }
+            } else {
+                for (let i = 0; i < maxLength; i++) {
+                    let browseCard = browseMusicDiv.appendChild(document.createElement('div'));
+                    browseCard.classList.add('card', 'm-3', 'browseCard', 'bg-light', 'shadow-dark');
+                    let browseCardRow = browseCard.appendChild(document.createElement('div'));
+                    browseCardRow.classList.add('row', 'g-0');
+                    let colMed2 = browseCardRow.appendChild(document.createElement('div'));
+                    colMed2.classList.add('col-md-2');
+                    let img = colMed2.appendChild(document.createElement('img'));
+                    img.src = data[i].thumbnail;
+                    img.classList.add('img-fluid', 'rounded-start', 'm-1');
+                    let colMed8 = browseCardRow.appendChild(document.createElement('div'));
+                    colMed8.classList.add('col-md-8');
+                    let colMed8Body = colMed8.appendChild(document.createElement('div'));
+                    colMed8Body.classList.add('card-body', 'text-dark');
+                    let colMed8Title = colMed8Body.appendChild(document.createElement('h5'));
+                    colMed8Title.classList.add('card-title', 'text-dark');
+                    colMed8Title.innerHTML = data[i].song_title;
+                    let colMed8Text = colMed8Body.appendChild(document.createElement('p'));
+                    colMed8Text.classList.add('card-text', 'text-dark');
+                    colMed8Text.innerHTML = data[i].artist.artist_name;
+                    let col2 = browseCardRow.appendChild(document.createElement('div'));
+                    col2.classList.add('col-2');
+                    let playBtn = col2.appendChild(document.createElement('button'));
+                    playBtn.classList.add('btn', 'btn-dark', 'playlistBtn', 'm-3');
+                    playBtn.appendChild(document.createElement('i')).classList.add('bi', 'bi-music-note-list');
+                }
             }
+            
 
         })
         .catch(error => {
