@@ -14,6 +14,20 @@ router.get('/', async (req, res) => {
     }
 }  );
 
+//get by id
+router.get('/:id', async (req, res) => {
+    try {
+        const artistData = await Artist.findByPk(req.params.id);
+        if (!artistData) {
+            res.status(404).json({ message: 'No artist found with that id!' });
+            return;
+        }
+        res.status(200).json(artistData);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 //find artist by name
 // get artist ny name
 
