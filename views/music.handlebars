@@ -12,7 +12,8 @@
             <div class="card bg-light shadow-dark mb-4 p-2" id="searchDiv">
                 <form>
                     <div class="mb-3">
-                        <input type="text" placeholder="Search" class="form-control" id="searchInput" name="search" required>
+                        <input type="text" placeholder="Search" class="form-control" id="searchInput" name="search"
+                            required>
                     </div>
                     <button type="submit" class="btn btn-dark" id="searchBtn">Search</button>
                 </form>
@@ -26,56 +27,58 @@
                 <h1 class="text-dark" id="recentSongsTitle">Latest Songs</h1>
                 <!-- Song Cards -->
                 {{#each songs as |song|}}
-                    {{#ifCond @index '<' 5}} 
-                    <div class="card m-3 recentCard">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="{{song.thumbnail}}" class="img-fluid rounded-start m-1" alt="...">
-                            </div>
-                            <div class="col-md-5">
-                                <div class="card-body">
-                                    <h5 class="card-title fs-6">{{song.song_title}}</h5>
-                                    <p class="card-text">{{song.artist.artist_name}}</p>
-                                    <!-- <p class="card-text"><small class="text-body-secondary">Date or Album</small></p> -->
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <button class="btn btn-dark m-3 playlistBtn" id="playlistButton"><i
-                                        class="bi bi-music-note-list"></i></button>
-
+                {{#ifCond @index '<' 5}} 
+                <div class="card m-3 recentCard">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <iframe
+                                src="https://www.youtube.com/embed/{{song.song_url}}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
+                                allowfullscreen allowtransparency allow="autoplay"></iframe>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title fs-6 latestSongTitle">{{song.song_title}}</h5>
+                                <p class="card-text">{{song.artist.artist_name}}</p>
+                                <!-- <p class="card-text"><small class="text-body-secondary">Date or Album</small></p> -->
                             </div>
                         </div>
+                        {{!-- <div class="col-3">
+                            <button class="btn btn-dark m-3 playlistBtn" id="playlistButton"><i
+                                    class="bi bi-music-note-list"></i></button>
+
+                        </div> --}}
                     </div>
-                    {{/ifCond}}
-                {{/each}}
             </div>
+            {{/ifCond}}
+            {{/each}}
         </div>
- 
-        <!-- Browse Music -->
-        <div class="col-8">
-            <div class="card bg-light shadow-dark" id="browseMusicDiv">
-                <h1 class="text-dark" id="browseMusicTitle">Browse Music</h1>
-                <!-- Browse Music Cards -->
-            </div>
+    </div>
+
+    <!-- Browse Music -->
+    <div class="col-8">
+        <div class="card bg-light shadow-dark" id="browseMusicDiv">
+            <h1 class="text-dark" id="browseMusicTitle">Browse Music</h1>
+            <!-- Browse Music Cards -->
         </div>
-        <div class="col-2">
-            <div class="card bg-light shadow-dark" id="createPlaylistDiv">
-                <h1 class="text-dark" id="createPlaylistTitle">Playlists</h1>
-                <!-- Playlist Cards -->
-                {{#each playlists as |playlist|}}
-                <div class="card m-3">
-                    <div class="row g-0">
-                        <div class="col-md-8">
-                            <h5 class="card-title">{{playlist.playlist_name}}</h5>
-                            <div class=" card-body">
-                            </div>
+    </div>
+    <div class="col-2">
+        <div class="card bg-light shadow-dark" id="createPlaylistDiv">
+            <h1 class="text-dark" id="createPlaylistTitle">Playlists</h1>
+            <!-- Playlist Cards -->
+            {{#each playlists as |playlist|}}
+            <div class="card m-3">
+                <div class="row g-0">
+                    <div class="col-md-8">
+                        <h5 class="card-title">{{playlist.playlist_name}}</h5>
+                        <div class=" card-body">
                         </div>
                     </div>
                 </div>
             </div>
-            {{/each}}
         </div>
+        {{/each}}
     </div>
+</div>
 </div>
 
 </div>
