@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { Playlist, Song, User, Artist } = require('../../models');
+const { where } = require('sequelize');
+const { Playlist, Song, User, Artist, PlaylistSong} = require('../../models');
 
 
 // GET /api/playlists
@@ -60,14 +61,20 @@ router.post('/', async (req, res) => {
 });
 
 //ADD song to playlist
-router.post('/:playlist_name', async (req, res) => {
+router.put('/:playlistId/songs', async (req, res) => {
   try {
-    const playlistData = await Playlist.create({
-      playlist_name: req.body.playlist_name,
-      user_id: req.body.user_id,
-    });
+    const songIds = req.body.song_ids;
+    console.log('Adding songs to playlist:', songIds);
 
-    res.status(200).json(playlistData);
+    for (let songId of songIds) {
+      await PlaylistSong.create({
+        playlist_id: req.params.playlistId,
+        song_id: songId
+      });
+      console.log('Song added to playlist:', songId);
+    }
+
+    res.status(200).json({ message: 'Songs added to playlist.' });
   } catch (err) {
     res.status(400).json(err);
   }
