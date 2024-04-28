@@ -211,10 +211,12 @@ searchBtn.onclick = async function (event) {
                     colMed2.classList.add('col-md-2');
                     let iframe = colMed2.appendChild(document.createElement('iframe'));
                     iframe.src = "https://www.youtube.com/embed/" + data[i].song_url + "?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1";
-                    iframe.classList.add( 'rounded-start', 'm-1');
+                    iframe.classList.add( 'rounded-start');
                     iframe.allowfullscreen = true;
                     iframe.allowtransparency = true;
                     iframe.allow = "autoplay";
+                    iframe.width = "100%";
+                    iframe.height = "90%";
                     let colMed8 = browseCardRow.appendChild(document.createElement('div'));
                     colMed8.classList.add('col-md-8');
                     let colMed8Body = colMed8.appendChild(document.createElement('div'));
@@ -228,7 +230,7 @@ searchBtn.onclick = async function (event) {
                     let col2 = browseCardRow.appendChild(document.createElement('div'));
                     col2.classList.add('col-2');
                     let playBtn = col2.appendChild(document.createElement('button'));
-                    playBtn.classList.add('btn', 'btn-light', 'playlistBtn', 'm-3');
+                    playBtn.classList.add('btn', 'btn-light', 'playlistBtn', 'm-5');
                     playBtn.appendChild(document.createElement('i')).classList.add('bi', 'bi-music-note-list');
                 }
             } else {
@@ -241,10 +243,12 @@ searchBtn.onclick = async function (event) {
                     colMed2.classList.add('col-md-2');
                     let iframe = colMed2.appendChild(document.createElement('iframe'));
                     iframe.src = "https://www.youtube.com/embed/" + data[i].song_url + "?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1";
-                    iframe.classList.add( 'rounded-start', 'm-1');
+                    iframe.classList.add( 'rounded-start');
                     iframe.allowfullscreen = true;
                     iframe.allowtransparency = true;
                     iframe.allow = "autoplay";
+                    iframe.width = "100%";
+                    iframe.height = "90%";
                     let colMed8 = browseCardRow.appendChild(document.createElement('div'));
                     colMed8.classList.add('col-md-8');
                     let colMed8Body = colMed8.appendChild(document.createElement('div'));
@@ -258,7 +262,7 @@ searchBtn.onclick = async function (event) {
                     let col2 = browseCardRow.appendChild(document.createElement('div'));
                     col2.classList.add('col-2');
                     let playBtn = col2.appendChild(document.createElement('button'));
-                    playBtn.classList.add('btn', 'btn-dark', 'playlistBtn', 'm-3');
+                    playBtn.classList.add('btn', 'btn-dark', 'playlistBtn', 'm-5');
                     playBtn.appendChild(document.createElement('i')).classList.add('bi', 'bi-music-note-list');
                 }
             }
