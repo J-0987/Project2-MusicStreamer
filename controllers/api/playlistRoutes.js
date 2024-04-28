@@ -32,25 +32,34 @@ router.get('/', async (req, res) => {
 });
   
 
-//Get playlist by username
-router.get('/playlist/:username', async (req, res) => {
+//Get playlist by user_id
+router.get('/', async (req, res) => {
   try {
     const playlistData = await Playlist.findAll({
       where: {
-        username: req.params.username,
+        user_id: req.session.user_id, // Only find playlists by the logged-in user
       },
+      include: [
+        {
+          model: User,
+        },
+        {
+          model: Song,
+          include: {
+            model: Artist,
+          },
+        },
+      ],
     });
 
-    if (!playlistData) {
-      res.status(404).json({ message: 'No playlist found with that name!' });
-      return;
-    }
+    const playlists = playlistData.map((playlist) => playlist.get({ plain: true }));
 
-    res.status(200).json(playlistData);
+    console.log('Found playlists:', playlists); // Log the found playlists
+    res.status(200).json(playlists);
   } catch (err) {
     res.status(500).json(err);
   }
-} );
+});
 
 // CREATE a new playlist
 router.post('/', async (req, res) => {
