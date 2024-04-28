@@ -8,13 +8,21 @@ const { Playlist, Song, User, Artist, PlaylistSong} = require('../../models');
 router.get('/', async (req, res) => {
   try {
     const playlistData = await Playlist.findAll({
-      include: [{
-        model: {Song, User, Song, Artist},
-      
-      }]
-  });
+      include: [
+        {
+          model: User,
+        },
+        {
+          model: Song,
+          include: {
+            model: Artist,
+          },
+        },
+       
+      ],
+    });
 
-  const playlists = playlistData.map((playlist) => playlist.get({ plain: true }));
+    const playlists = playlistData.map((playlist) => playlist.get({ plain: true }));
 
   console.log('Found playlists:', playlists); // Log the found playlists
     res.status(200).json(playlists);
@@ -22,6 +30,7 @@ router.get('/', async (req, res) => {
     res.status(500).json(err);
   }
 });
+  
 
 //Get playlist by username
 router.get('/playlist/:username', async (req, res) => {
