@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { where } = require('sequelize');
 const { Playlist, Song, User, Artist, PlaylistSong} = require('../../models');
-
+const withAuth = require('../../utils/auth');
 
 // GET /api/playlists
 // get all playlists
@@ -33,7 +33,8 @@ router.get('/', async (req, res) => {
   
 
 //Get playlist by user_id
-router.get('/', async (req, res) => {
+router.get('/user', withAuth,async (req, res) => {
+  console.log("Playlist by user_id", req.session);
   try {
     const playlistData = await Playlist.findAll({
       where: {
@@ -57,15 +58,17 @@ router.get('/', async (req, res) => {
     console.log('Found playlists:', playlists); // Log the found playlists
     res.status(200).json(playlists);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
 
 // CREATE a new playlist
-router.post('/', async (req, res) => {
+router.post('/',withAuth, async (req, res) => {
+  console.log("Playlist",req.session)
   try {
     const playlistData = await Playlist.create({
-      user_id: req.body.user_id,
+      user_id: req.session.user_id,
       playlist_name: req.body.playlist_name,
       description: req.body.description,
   
@@ -79,20 +82,16 @@ router.post('/', async (req, res) => {
 });
 
 //ADD song to playlist
-router.put('/:playlistId/songs', async (req, res) => {
+router.put('/songs', async (req, res) => {
   try {
-    const songIds = req.body.song_ids;
-    console.log('Adding songs to playlist:', songIds);
-
-    for (let songId of songIds) {
-      await PlaylistSong.create({
-        playlist_id: req.params.playlistId,
-        song_id: songId
+    const playListSong =      await PlaylistSong.create({
+        playlist_id: req.body.playlist_id,
+        song_id: req.body.song_id,
       });
-      console.log('Song added to playlist:', songId);
-    }
+      console.log('Song added to playlist:', playListSong);
+    
 
-    res.status(200).json({ message: 'Songs added to playlist.' });
+    res.status(200).json({ message: 'Songs added to playlist.' ,playListSong});
   } catch (err) {
     res.status(400).json(err);
   }
@@ -101,11 +100,12 @@ router.put('/:playlistId/songs', async (req, res) => {
 
 
 // DELETE a playlist
-router.delete('/:playlist_name', async (req, res) => {
+router.delete('/:id', async (req, res) => {
+  console.log("Delete playlist",req.params)
   try {
     const playlistData = await Playlist.destroy({
       where: {
-        playlist_name: req.params.playlist_name,
+        id: req.params.id,
       },
     });
 
@@ -114,28 +114,13 @@ router.delete('/:playlist_name', async (req, res) => {
       return;
     }
 
-    res.status(200).json(playlistData);
+    res.status(200).json({message: 'Playlist deleted!',playlistData});
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
 
-router.get('/:playlist_name', async (req, res) => {
-  try {
-    const playlistData = await Playlist.findOne(req.params.playlist_name, {
-      include: [{ model: Song, User }],
-    });
-
-    if (!playlistData) {
-      res.status(404).json({ message: 'No playlist found with that name!' });
-      return;
-    }
-
-    res.status(200).json(playlistData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
 module.exports = router;
 

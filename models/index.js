@@ -38,7 +38,8 @@ Playlist.belongsToMany(Song, {
     through: {
         model: PlaylistSong,
         foreignKey: 'playlist_id',
-    }
+    },
+    
 });
 
 Song.belongsToMany(Playlist, {
