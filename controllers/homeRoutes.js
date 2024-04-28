@@ -38,7 +38,7 @@ router.get('/music',withAuth,async (req, res) => {
 
         // Fetch all songs from the database
         const songData = await Song.findAll({
-            where: { user_id: req.session.user_id },
+           
             include: [{
                 model: Artist,
                 attributes: ['artist_name'] // Only include the artist_name attribute
