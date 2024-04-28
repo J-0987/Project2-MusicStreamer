@@ -46,6 +46,7 @@ router.get('/music', withAuth, async (req, res) => {
 
             
         });
+    
         const songs = songData.map((song) => song.get({ plain: true }));
         console.log(songs[0]);
         
