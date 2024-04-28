@@ -185,6 +185,7 @@ setTheme();
 //     window.location.href = './login.html';
 // }
 
+
 searchInput = document.getElementById('searchInput');
 searchBtn = document.getElementById('searchBtn');
 searchBtn.onclick = async function (event) {
@@ -211,7 +212,7 @@ searchBtn.onclick = async function (event) {
                     colMed2.classList.add('col-md-2');
                     let iframe = colMed2.appendChild(document.createElement('iframe'));
                     iframe.src = "https://www.youtube.com/embed/" + data[i].song_url + "?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1";
-                    iframe.classList.add( 'rounded-start');
+                    iframe.classList.add('rounded-start');
                     iframe.allowfullscreen = true;
                     iframe.allowtransparency = true;
                     iframe.allow = "autoplay";
@@ -243,7 +244,7 @@ searchBtn.onclick = async function (event) {
                     colMed2.classList.add('col-md-2');
                     let iframe = colMed2.appendChild(document.createElement('iframe'));
                     iframe.src = "https://www.youtube.com/embed/" + data[i].song_url + "?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1";
-                    iframe.classList.add( 'rounded-start');
+                    iframe.classList.add('rounded-start');
                     iframe.allowfullscreen = true;
                     iframe.allowtransparency = true;
                     iframe.allow = "autoplay";
@@ -266,10 +267,33 @@ searchBtn.onclick = async function (event) {
                     playBtn.appendChild(document.createElement('i')).classList.add('bi', 'bi-music-note-list');
                 }
             }
-            
-
         })
         .catch(error => {
             console.error('Error:', error);
         });
 }
+
+const playBtns = document.querySelectorAll('.playlistBtn');
+    playBtns.forEach(btn => {
+        btn.onclick = async function () {
+            console.log('play button clicked');
+            await fetch('/api/playlists/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_id: sessionStorage.getItem('user_id'),
+                    playlist_name: 'My Playlist',
+                    description: 'My favorite songs'
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    });
+
+
