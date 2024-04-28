@@ -37,7 +37,8 @@ async function fetchPlaylistVideos(playlistId) {
     // Extract video information from the response
     const videos = response.data.items.map(item => ({
       "song_title": item.snippet.title.split("-")[1]||"N/A",
-      "song_url": `https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}`||"N/A",
+      // "song_url": `https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}`||"N/A",
+      "song_url": item.snippet.resourceId.videoId || "N/A",
       "thumbnail": (item.snippet.thumbnails && item.snippet.thumbnails.default) ? item.snippet.thumbnails.default.url : '', // Check if thumbnails exist before accessing
     }));
     const artistName = response.data.items[0].snippet.channelTitle;
