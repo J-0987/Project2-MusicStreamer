@@ -66,6 +66,7 @@ router.post('/logout', (req, res) => {
   }
 });
 
+// Get all users
 router.get('/', async (req, res) => {
   try {
     const userData = await User.findAll(); res.status(200).json(userData);
