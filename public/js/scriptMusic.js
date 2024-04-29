@@ -23,6 +23,10 @@ function setTheme() {
     cardText = document.querySelectorAll('.card-text');
     cardTitle = document.querySelectorAll('.card-title');
 
+    playlistCards = document.querySelectorAll('.playlistCard');
+    createPlaylistButton = document.getElementById('createPlaylistButton');
+    groupListItem = document.querySelectorAll('.list-group-item');
+
     if (localStorage.getItem('theme') === 'dark') {
 
         bgDiv.classList.remove('background');
@@ -59,6 +63,9 @@ function setTheme() {
         createPlaylistTitle.classList.add('text-light');
         createPlaylistTitle.classList.remove('text-dark');
 
+        createPlaylistButton.classList.remove('btn-dark');
+        createPlaylistButton.classList.add('btn-light');
+
         browseCards.forEach(card => {
             card.classList.remove('bg-light', 'shadow-dark');
             card.classList.add('bg-dark', 'shadow-light');
@@ -82,6 +89,18 @@ function setTheme() {
         cardTitle.forEach(title => {
             title.classList.remove('text-dark');
             title.classList.add('text-light');
+        });
+
+        playlistCards.forEach(card => {
+            card.classList.remove('bg-light', 'shadow-dark');
+            card.classList.add('bg-dark', 'shadow-light');
+        });
+
+        groupListItem.forEach(item => {
+            item.classList.remove('text-dark');
+            item.classList.add('text-light');
+            item.classList.remove('bg-light');
+            item.classList.add('bg-dark');
         });
 
         // footerText.classList.remove('text-body-secondary');
@@ -128,6 +147,9 @@ function setTheme() {
         createPlaylistTitle.classList.add('text-dark');
         createPlaylistTitle.classList.remove('text-light');
 
+        createPlaylistButton.classList.remove('btn-light');
+        createPlaylistButton.classList.add('btn-dark');
+
         browseCards.forEach(card => {
             card.classList.remove('bg-dark', 'shadow-light');
             card.classList.add('bg-light', 'shadow-dark');
@@ -151,6 +173,18 @@ function setTheme() {
         cardTitle.forEach(title => {
             title.classList.remove('text-light');
             title.classList.add('text-dark');
+        });
+
+        playlistCards.forEach(card => {
+            card.classList.remove('bg-dark', 'shadow-light');
+            card.classList.add('bg-light', 'shadow-dark');
+        });
+
+        groupListItem.forEach(item => {
+            item.classList.remove('text-light');
+            item.classList.add('text-dark');
+            item.classList.remove('bg-dark');
+            item.classList.add('bg-light');
         });
 
         // footerText.classList.remove('text-secondary');
@@ -180,11 +214,9 @@ themeButton.onclick = function () {
 setTheme();
 
 
-// loginButton = document.getElementById('loginButton');
-// loginButton.onclick = function () {
-//     window.location.href = './login.html';
-// }
 
+
+// renders search songs
 searchInput = document.getElementById('searchInput');
 searchBtn = document.getElementById('searchBtn');
 searchBtn.onclick = async function (event) {
@@ -211,7 +243,7 @@ searchBtn.onclick = async function (event) {
                     colMed2.classList.add('col-md-2');
                     let iframe = colMed2.appendChild(document.createElement('iframe'));
                     iframe.src = "https://www.youtube.com/embed/" + data[i].song_url + "?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1";
-                    iframe.classList.add( 'rounded-start');
+                    iframe.classList.add('rounded-start');
                     iframe.allowfullscreen = true;
                     iframe.allowtransparency = true;
                     iframe.allow = "autoplay";
@@ -232,6 +264,7 @@ searchBtn.onclick = async function (event) {
                     let playBtn = col2.appendChild(document.createElement('button'));
                     playBtn.classList.add('btn', 'btn-light', 'playlistBtn', 'm-5');
                     playBtn.appendChild(document.createElement('i')).classList.add('bi', 'bi-music-note-list');
+                    updatePlaylistBtns();
                 }
             } else {
                 for (let i = 0; i < maxLength; i++) {
@@ -243,7 +276,7 @@ searchBtn.onclick = async function (event) {
                     colMed2.classList.add('col-md-2');
                     let iframe = colMed2.appendChild(document.createElement('iframe'));
                     iframe.src = "https://www.youtube.com/embed/" + data[i].song_url + "?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1";
-                    iframe.classList.add( 'rounded-start');
+                    iframe.classList.add('rounded-start');
                     iframe.allowfullscreen = true;
                     iframe.allowtransparency = true;
                     iframe.allow = "autoplay";
@@ -264,12 +297,128 @@ searchBtn.onclick = async function (event) {
                     let playBtn = col2.appendChild(document.createElement('button'));
                     playBtn.classList.add('btn', 'btn-dark', 'playlistBtn', 'm-5');
                     playBtn.appendChild(document.createElement('i')).classList.add('bi', 'bi-music-note-list');
+                    updatePlaylistBtns();
                 }
             }
-            
-
         })
         .catch(error => {
             console.error('Error:', error);
         });
 }
+
+// renders playlists for user
+function renderPlaylists() {
+    fetch('/api/playlists/user', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            let maxLength;
+            if (data.length < 5) {
+                maxLength = data.length;
+            } else {
+                maxLength = 5;
+            }
+            if (localStorage.getItem('theme') === 'dark') {
+                for (let i = 0; i < maxLength; i++) {
+                    let cardm3 = createPlaylistDiv.appendChild(document.createElement('div'));
+                    cardm3.classList.add('card', 'm-3', 'bg-dark', 'shadow-light', 'playlistCard', 'p-2');
+                    // let rowg0 = cardm3.appendChild(document.createElement('div'));
+                    // rowg0.classList.add('row', 'g-0');
+                    // let colmd8 = rowg0.appendChild(document.createElement('div'));
+                    // colmd8.classList.add('col-md-8');
+                    let cardTitle = cardm3.appendChild(document.createElement('h5'));
+                    cardTitle.classList.add('card-title', 'text-light');
+                    cardTitle.innerHTML = data[i].playlist_name;
+                    let cardBody = cardm3.appendChild(document.createElement('div'));
+                    cardBody.classList.add('card-body');
+                    let cardText = cardBody.appendChild(document.createElement('p'));
+                    cardText.classList.add('card-text', 'text-light');
+                    cardText.innerHTML = data[i].description;
+                    let songList = cardBody.appendChild(document.createElement('ul'));
+                    songList.classList.add('list-group', 'list-group-flush', 'bg-dark', 'text-light');
+                    for (let j = 0; j < data[i].songs.length; j++) {
+                        let songListItem = songList.appendChild(document.createElement('li'));
+                        songListItem.classList.add('list-group-item', 'bg-dark', 'text-light');
+                        songListItem.innerHTML = data[i].songs[j].song_title;
+                    }
+                }
+            } else {
+                for (let i = 0; i < maxLength; i++) {
+                    let cardm3 = createPlaylistDiv.appendChild(document.createElement('div'));
+                    cardm3.classList.add('card', 'm-3', 'bg-light', 'shadow-dark', 'playlistCard', 'p-2');
+                    // let rowg0 = cardm3.appendChild(document.createElement('div'));
+                    // rowg0.classList.add('row', 'g-0');
+                    // let colmd8 = rowg0.appendChild(document.createElement('div'));
+                    // colmd8.classList.add('col-md-8');
+                    let cardTitle = cardm3.appendChild(document.createElement('h5'));
+                    cardTitle.classList.add('card-title', 'text-dark');
+                    cardTitle.innerHTML = data[i].playlist_name;
+                    let cardBody = cardm3.appendChild(document.createElement('div'));
+                    cardBody.classList.add('card-body');
+                    let cardText = cardBody.appendChild(document.createElement('p'));
+                    cardText.classList.add('card-text', 'text-dark');
+                    cardText.innerHTML = data[i].description;
+                    let songList = cardBody.appendChild(document.createElement('ul'));
+                    songList.classList.add('list-group', 'list-group-flush', 'bg-light', 'text-dark');
+                    for (let j = 0; j < data[i].songs.length; j++) {
+                        let songListItem = songList.appendChild(document.createElement('li'));
+                        songListItem.classList.add('list-group-item', 'bg-light', 'text-dark');
+                        songListItem.innerHTML = data[i].songs[j].song_title;
+                    }
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+renderPlaylists();
+
+// button that creates a playlist
+createPlaylistButton.onclick = function () {
+    fetch('/api/playlists/', {
+        method: 'POST',
+        body: JSON.stringify({
+            playlist_name: document.getElementById('playlistName').value,
+            description: document.getElementById('playlistDescription').value
+        }),
+        headers: { 'Content-Type': 'application/json' }
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+function updatePlaylistBtns() {
+    playlistBtns = document.querySelectorAll('.playlistBtn');
+}
+
+let playlistBtns = document.querySelectorAll('.playlistBtn');
+playlistBtns.forEach(btn => {
+    btn.onclick = function () {
+        console.log('clicked');
+        fetch('/api/playlists/songs', {
+            method: 'PUT',
+            body: JSON.stringify({
+                playlist_id: 12,
+                song_id: 111
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+});

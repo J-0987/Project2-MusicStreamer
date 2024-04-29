@@ -31,10 +31,10 @@ router.get('/music', withAuth, async (req, res) => {
 
     try {
         // Fetch the user's playlists from the database
-        // const playlists = await Playlist.findAll({
-        //     where: { user_id: req.session.user_id },
-        //     include: ['songs'] // Include the songs in each playlist
-        // });
+        const playlists = await Playlist.findAll({
+            where: { user_id: req.session.user_id },
+            include: ['songs'] // Include the songs in each playlist
+        });
 
         // Fetch all songs from the database
         const songData = await Song.findAll({
@@ -51,7 +51,7 @@ router.get('/music', withAuth, async (req, res) => {
         console.log(songs[0]);
         
         // Render the 'music' view and pass the playlists and songs
-        res.render('music', { songs });
+        res.render('music', { songs, playlists, logged_in: req.session.logged_in});
 
     } catch (err) {
         // If there was an error, return a 500 error
