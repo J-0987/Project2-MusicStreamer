@@ -6,7 +6,7 @@
 ![express](https://img.shields.io/badge/Express.js-purple)
 ![postgresql](https://img.shields.io/badge/Postgresql-blue)
 
-# SVG Generator
+# Music Streamer
 
 The Web Music Streaming App is a platform designed for music enthusiasts to enjoy their favorite tunes seamlessly. With a user-friendly interface and a wide selection of songs, it offers an immersive music streaming experience. Powered by Handlebars, Node.js, PostgreSQL, Plyr, Express, and Sequelize, this app ensures smooth performance and reliability.
 
@@ -67,18 +67,23 @@ Follow the prompts to provide information about your project. Once you've comple
 
 ## Visuals
 
-**Video Demo
 
 
 
 User interface
 
-![alt text](image.png)
+![main page](image-1.png)
 
+![login](image-2.png)
 
-![alt text](image-1.png)
+![music page](image-3.png)
 
-![alt text](image-2.png)
+![dark mode music page](image-4.png)
+
+(![about](image.png))
+
+![FAQ](image-1.png)
+
 
 
 ## Contributing
