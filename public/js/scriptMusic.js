@@ -1,3 +1,4 @@
+// const { create } = require("../../models/Artist");
 
 
 function setTheme() {
@@ -263,8 +264,9 @@ searchBtn.onclick = async function (event) {
                     col2.classList.add('col-2');
                     let playBtn = col2.appendChild(document.createElement('button'));
                     playBtn.classList.add('btn', 'btn-light', 'playlistBtn', 'm-5');
+                    playBtn.setAttribute('data-songId', data[i].id);
                     playBtn.appendChild(document.createElement('i')).classList.add('bi', 'bi-music-note-list');
-                    updatePlaylistBtns();
+                    updatePlaylistBtns(playBtn);
                 }
             } else {
                 for (let i = 0; i < maxLength; i++) {
@@ -289,15 +291,17 @@ searchBtn.onclick = async function (event) {
                     let colMed8Title = colMed8Body.appendChild(document.createElement('h5'));
                     colMed8Title.classList.add('card-title', 'text-dark');
                     colMed8Title.innerHTML = data[i].song_title;
+                    console.log(data[i]);
                     let colMed8Text = colMed8Body.appendChild(document.createElement('p'));
                     colMed8Text.classList.add('card-text', 'text-dark');
                     colMed8Text.innerHTML = data[i].artist.artist_name;
                     let col2 = browseCardRow.appendChild(document.createElement('div'));
                     col2.classList.add('col-2');
                     let playBtn = col2.appendChild(document.createElement('button'));
+                    playBtn.setAttribute('data-songId', data[i].id);
                     playBtn.classList.add('btn', 'btn-dark', 'playlistBtn', 'm-5');
                     playBtn.appendChild(document.createElement('i')).classList.add('bi', 'bi-music-note-list');
-                    updatePlaylistBtns();
+                    updatePlaylistBtns(playBtn);
                 }
             }
         })
@@ -314,6 +318,7 @@ function renderPlaylists() {
     })
         .then(response => response.json())
         .then(data => {
+            createPlaylistDiv.innerHTML = '';
             console.log(data);
             let maxLength;
             if (data.length < 5) {
@@ -372,6 +377,7 @@ function renderPlaylists() {
             }
         })
         .catch(error => {
+            // console.log(error);
             console.error('Error:', error);
         });
 }
@@ -397,19 +403,40 @@ createPlaylistButton.onclick = function () {
         });
 }
 
-function updatePlaylistBtns() {
-    playlistBtns = document.querySelectorAll('.playlistBtn');
+function updatePlaylistBtns(newBtn) {
+    // playlistBtns = document.querySelectorAll('.playlistBtn');
+    newBtn.onclick = function () {
+        console.log('clicked');
+        fetch('/api/playlists/songs', {
+            method: 'PUT',
+            body: JSON.stringify({
+                playlist_id: 1,
+                song_id: newBtn.getAttribute('data-songId')
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                renderPlaylists();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
 }
 
 let playlistBtns = document.querySelectorAll('.playlistBtn');
 playlistBtns.forEach(btn => {
+    console.log(btn);
     btn.onclick = function () {
         console.log('clicked');
         fetch('/api/playlists/songs', {
             method: 'PUT',
             body: JSON.stringify({
-                playlist_id: 12,
-                song_id: 111
+                playlist_id: 1,
+                song_id: btn.getAttribute('data-songId')
             }),
             headers: { 'Content-Type': 'application/json' }
         })
@@ -421,4 +448,5 @@ playlistBtns.forEach(btn => {
                 console.error('Error:', error);
             });
     }
+
 });

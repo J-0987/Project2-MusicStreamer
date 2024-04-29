@@ -83,6 +83,7 @@ router.post('/',withAuth, async (req, res) => {
 
 //ADD song to playlist
 router.put('/songs', async (req, res) => {
+  console.log("Add song to playlist",req.body)
   try {
     const playListSong =      await PlaylistSong.create({
         playlist_id: req.body.playlist_id,
@@ -94,6 +95,7 @@ router.put('/songs', async (req, res) => {
     res.status(200).json({ message: 'Songs added to playlist.' ,playListSong});
   } catch (err) {
     res.status(400).json(err);
+    console.log(err)
   }
 });
 
