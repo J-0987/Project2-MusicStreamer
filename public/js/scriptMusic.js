@@ -214,12 +214,9 @@ themeButton.onclick = function () {
 setTheme();
 
 
-// loginButton = document.getElementById('loginButton');
-// loginButton.onclick = function () {
-//     window.location.href = './login.html';
-// }
 
 
+// renders search songs
 searchInput = document.getElementById('searchInput');
 searchBtn = document.getElementById('searchBtn');
 searchBtn.onclick = async function (event) {
@@ -267,6 +264,7 @@ searchBtn.onclick = async function (event) {
                     let playBtn = col2.appendChild(document.createElement('button'));
                     playBtn.classList.add('btn', 'btn-light', 'playlistBtn', 'm-5');
                     playBtn.appendChild(document.createElement('i')).classList.add('bi', 'bi-music-note-list');
+                    updatePlaylistBtns();
                 }
             } else {
                 for (let i = 0; i < maxLength; i++) {
@@ -299,6 +297,7 @@ searchBtn.onclick = async function (event) {
                     let playBtn = col2.appendChild(document.createElement('button'));
                     playBtn.classList.add('btn', 'btn-dark', 'playlistBtn', 'm-5');
                     playBtn.appendChild(document.createElement('i')).classList.add('bi', 'bi-music-note-list');
+                    updatePlaylistBtns();
                 }
             }
         })
@@ -307,7 +306,7 @@ searchBtn.onclick = async function (event) {
         });
 }
 
-
+// renders playlists for user
 function renderPlaylists() {
     fetch('/api/playlists/user', {
         method: 'GET',
@@ -379,6 +378,7 @@ function renderPlaylists() {
 
 renderPlaylists();
 
+// button that creates a playlist
 createPlaylistButton.onclick = function () {
     fetch('/api/playlists/', {
         method: 'POST',
@@ -396,3 +396,29 @@ createPlaylistButton.onclick = function () {
             console.error('Error:', error);
         });
 }
+
+function updatePlaylistBtns() {
+    playlistBtns = document.querySelectorAll('.playlistBtn');
+}
+
+let playlistBtns = document.querySelectorAll('.playlistBtn');
+playlistBtns.forEach(btn => {
+    btn.onclick = function () {
+        console.log('clicked');
+        fetch('/api/playlists/songs', {
+            method: 'PUT',
+            body: JSON.stringify({
+                playlist_id: 12,
+                song_id: 111
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+});
