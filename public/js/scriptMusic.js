@@ -23,6 +23,9 @@ function setTheme() {
     cardText = document.querySelectorAll('.card-text');
     cardTitle = document.querySelectorAll('.card-title');
 
+    playlistCards = document.querySelectorAll('.playlistCard');
+    createPlaylistButton = document.getElementById('createPlaylistButton');
+
     if (localStorage.getItem('theme') === 'dark') {
 
         bgDiv.classList.remove('background');
@@ -59,6 +62,9 @@ function setTheme() {
         createPlaylistTitle.classList.add('text-light');
         createPlaylistTitle.classList.remove('text-dark');
 
+        createPlaylistButton.classList.remove('btn-dark');
+        createPlaylistButton.classList.add('btn-light');
+
         browseCards.forEach(card => {
             card.classList.remove('bg-light', 'shadow-dark');
             card.classList.add('bg-dark', 'shadow-light');
@@ -82,6 +88,11 @@ function setTheme() {
         cardTitle.forEach(title => {
             title.classList.remove('text-dark');
             title.classList.add('text-light');
+        });
+
+        playlistCards.forEach(card => {
+            card.classList.remove('bg-light', 'shadow-dark');
+            card.classList.add('bg-dark', 'shadow-light');
         });
 
         // footerText.classList.remove('text-body-secondary');
@@ -128,6 +139,9 @@ function setTheme() {
         createPlaylistTitle.classList.add('text-dark');
         createPlaylistTitle.classList.remove('text-light');
 
+        createPlaylistButton.classList.remove('btn-light');
+        createPlaylistButton.classList.add('btn-dark');
+
         browseCards.forEach(card => {
             card.classList.remove('bg-dark', 'shadow-light');
             card.classList.add('bg-light', 'shadow-dark');
@@ -151,6 +165,11 @@ function setTheme() {
         cardTitle.forEach(title => {
             title.classList.remove('text-light');
             title.classList.add('text-dark');
+        });
+
+        playlistCards.forEach(card => {
+            card.classList.remove('bg-dark', 'shadow-light');
+            card.classList.add('bg-light', 'shadow-dark');
         });
 
         // footerText.classList.remove('text-secondary');
@@ -273,27 +292,80 @@ searchBtn.onclick = async function (event) {
         });
 }
 
-const playBtns = document.querySelectorAll('.playlistBtn');
-    playBtns.forEach(btn => {
-        btn.onclick = async function () {
-            console.log('play button clicked');
-            await fetch('/api/playlists/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    user_id: sessionStorage.getItem('user_id'),
-                    playlist_name: 'My Playlist',
-                    description: 'My favorite songs'
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-    });
+
+function renderPlaylists() {
+    fetch('/api/playlists/user', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            let maxLength;
+            if (data.length < 5) {
+                maxLength = data.length;
+            } else {
+                maxLength = 5;
+            }
+            if (localStorage.getItem('theme') === 'dark') {
+                for (let i = 0; i < maxLength; i++) {
+                    let cardm3 = createPlaylistDiv.appendChild(document.createElement('div'));
+                    cardm3.classList.add('card', 'm-3', 'bg-dark', 'shadow-light', 'playlistCard', 'p-2');
+                    let rowg0 = cardm3.appendChild(document.createElement('div'));
+                    rowg0.classList.add('row', 'g-0');
+                    let colmd8 = rowg0.appendChild(document.createElement('div'));
+                    colmd8.classList.add('col-md-8');
+                    let cardTitle = colmd8.appendChild(document.createElement('h5'));
+                    cardTitle.classList.add('card-title', 'text-light');
+                    cardTitle.innerHTML = data[i].playlist_name;
+                    let cardBody = colmd8.appendChild(document.createElement('div'));
+                    cardBody.classList.add('card-body');
+                    let cardText = cardBody.appendChild(document.createElement('p'));
+                    cardText.classList.add('card-text', 'text-light');
+                    cardText.innerHTML = data[i].description;
+                }
+            } else {
+                for (let i = 0; i < maxLength; i++) {
+                    let cardm3 = createPlaylistDiv.appendChild(document.createElement('div'));
+                    cardm3.classList.add('card', 'm-3', 'bg-light', 'shadow-dark', 'playlistCard', 'p-2');
+                    let rowg0 = cardm3.appendChild(document.createElement('div'));
+                    rowg0.classList.add('row', 'g-0');
+                    let colmd8 = rowg0.appendChild(document.createElement('div'));
+                    colmd8.classList.add('col-md-8');
+                    let cardTitle = colmd8.appendChild(document.createElement('h5'));
+                    cardTitle.classList.add('card-title', 'text-dark');
+                    cardTitle.innerHTML = data[i].playlist_name;
+                    let cardBody = colmd8.appendChild(document.createElement('div'));
+                    cardBody.classList.add('card-body');
+                    let cardText = cardBody.appendChild(document.createElement('p'));
+                    cardText.classList.add('card-text', 'text-dark');
+                    cardText.innerHTML = data[i].description;
+                }
+            }
+
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+renderPlaylists();
 
 
+createPlaylistButton.onclick = function () {
+    fetch('/api/playlists/', {
+        method: 'POST',
+        body: JSON.stringify({
+            playlist_name: document.getElementById('playlistName').value,
+            description: document.getElementById('playlistDescription').value
+        }),
+        headers: { 'Content-Type': 'application/json' }
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}

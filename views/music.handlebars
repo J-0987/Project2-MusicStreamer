@@ -21,7 +21,6 @@
         </div>
         <div class="col-2"></div>
     </div>
-    <button class="btn btn-dark m-1 playlistBtn"><i class="bi bi-moon-fill"></i></button>
     <div class="row">
         <div class="col-2">
             <div class="card bg-light shadow-dark" id="recentSongsDiv">
@@ -62,21 +61,13 @@
         </div>
     </div>
     <div class="col-2">
-        <div class="card bg-light shadow-dark" id="createPlaylistDiv">
+        <div class="card bg-light shadow-dark p-1" id="createPlaylistDiv">
             <h1 class="text-dark" id="createPlaylistTitle">Playlists</h1>
             <!-- Playlist Cards -->
-            {{#each playlists as |playlist|}}
-            <div class="card m-3">
-                <div class="row g-0">
-                    <div class="col-md-8">
-                        <h5 class="card-title">{{playlist.playlist_name}}</h5>
-                        <div class=" card-body">
-                            <p class="card-text">{{playlist.description}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{/each}}
+            <input type="text" placeholder="Playlist Name" class="form-control mb-1" id="playlistName" name="playlist"
+                required>
+            <input type="text" placeholder="Playlist Description" class="form-control" id="playlistDescription" name="desc" required>
+            <button class="btn btn-dark m-3" id="createPlaylistButton"><i class="bi bi-plus"></i></button>
         </div>
 
     </div>
