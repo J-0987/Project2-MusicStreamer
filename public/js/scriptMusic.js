@@ -25,6 +25,7 @@ function setTheme() {
 
     playlistCards = document.querySelectorAll('.playlistCard');
     createPlaylistButton = document.getElementById('createPlaylistButton');
+    groupListItem = document.querySelectorAll('.list-group-item');
 
     if (localStorage.getItem('theme') === 'dark') {
 
@@ -93,6 +94,13 @@ function setTheme() {
         playlistCards.forEach(card => {
             card.classList.remove('bg-light', 'shadow-dark');
             card.classList.add('bg-dark', 'shadow-light');
+        });
+
+        groupListItem.forEach(item => {
+            item.classList.remove('text-dark');
+            item.classList.add('text-light');
+            item.classList.remove('bg-light');
+            item.classList.add('bg-dark');
         });
 
         // footerText.classList.remove('text-body-secondary');
@@ -170,6 +178,13 @@ function setTheme() {
         playlistCards.forEach(card => {
             card.classList.remove('bg-dark', 'shadow-light');
             card.classList.add('bg-light', 'shadow-dark');
+        });
+
+        groupListItem.forEach(item => {
+            item.classList.remove('text-light');
+            item.classList.add('text-dark');
+            item.classList.remove('bg-dark');
+            item.classList.add('bg-light');
         });
 
         // footerText.classList.remove('text-secondary');
@@ -311,38 +326,51 @@ function renderPlaylists() {
                 for (let i = 0; i < maxLength; i++) {
                     let cardm3 = createPlaylistDiv.appendChild(document.createElement('div'));
                     cardm3.classList.add('card', 'm-3', 'bg-dark', 'shadow-light', 'playlistCard', 'p-2');
-                    let rowg0 = cardm3.appendChild(document.createElement('div'));
-                    rowg0.classList.add('row', 'g-0');
-                    let colmd8 = rowg0.appendChild(document.createElement('div'));
-                    colmd8.classList.add('col-md-8');
-                    let cardTitle = colmd8.appendChild(document.createElement('h5'));
+                    // let rowg0 = cardm3.appendChild(document.createElement('div'));
+                    // rowg0.classList.add('row', 'g-0');
+                    // let colmd8 = rowg0.appendChild(document.createElement('div'));
+                    // colmd8.classList.add('col-md-8');
+                    let cardTitle = cardm3.appendChild(document.createElement('h5'));
                     cardTitle.classList.add('card-title', 'text-light');
                     cardTitle.innerHTML = data[i].playlist_name;
-                    let cardBody = colmd8.appendChild(document.createElement('div'));
+                    let cardBody = cardm3.appendChild(document.createElement('div'));
                     cardBody.classList.add('card-body');
                     let cardText = cardBody.appendChild(document.createElement('p'));
                     cardText.classList.add('card-text', 'text-light');
                     cardText.innerHTML = data[i].description;
+                    let songList = cardBody.appendChild(document.createElement('ul'));
+                    songList.classList.add('list-group', 'list-group-flush', 'bg-dark', 'text-light');
+                    for (let j = 0; j < data[i].songs.length; j++) {
+                        let songListItem = songList.appendChild(document.createElement('li'));
+                        songListItem.classList.add('list-group-item', 'bg-dark', 'text-light');
+                        songListItem.innerHTML = data[i].songs[j].song_title;
+                    }
                 }
             } else {
                 for (let i = 0; i < maxLength; i++) {
                     let cardm3 = createPlaylistDiv.appendChild(document.createElement('div'));
                     cardm3.classList.add('card', 'm-3', 'bg-light', 'shadow-dark', 'playlistCard', 'p-2');
-                    let rowg0 = cardm3.appendChild(document.createElement('div'));
-                    rowg0.classList.add('row', 'g-0');
-                    let colmd8 = rowg0.appendChild(document.createElement('div'));
-                    colmd8.classList.add('col-md-8');
-                    let cardTitle = colmd8.appendChild(document.createElement('h5'));
+                    // let rowg0 = cardm3.appendChild(document.createElement('div'));
+                    // rowg0.classList.add('row', 'g-0');
+                    // let colmd8 = rowg0.appendChild(document.createElement('div'));
+                    // colmd8.classList.add('col-md-8');
+                    let cardTitle = cardm3.appendChild(document.createElement('h5'));
                     cardTitle.classList.add('card-title', 'text-dark');
                     cardTitle.innerHTML = data[i].playlist_name;
-                    let cardBody = colmd8.appendChild(document.createElement('div'));
+                    let cardBody = cardm3.appendChild(document.createElement('div'));
                     cardBody.classList.add('card-body');
                     let cardText = cardBody.appendChild(document.createElement('p'));
                     cardText.classList.add('card-text', 'text-dark');
                     cardText.innerHTML = data[i].description;
+                    let songList = cardBody.appendChild(document.createElement('ul'));
+                    songList.classList.add('list-group', 'list-group-flush', 'bg-light', 'text-dark');
+                    for (let j = 0; j < data[i].songs.length; j++) {
+                        let songListItem = songList.appendChild(document.createElement('li'));
+                        songListItem.classList.add('list-group-item', 'bg-light', 'text-dark');
+                        songListItem.innerHTML = data[i].songs[j].song_title;
+                    }
                 }
             }
-
         })
         .catch(error => {
             console.error('Error:', error);
@@ -350,7 +378,6 @@ function renderPlaylists() {
 }
 
 renderPlaylists();
-
 
 createPlaylistButton.onclick = function () {
     fetch('/api/playlists/', {
