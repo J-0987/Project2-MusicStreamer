@@ -54,7 +54,7 @@ async function fetchPlaylistVideos(playlistId) {
 const seedDatabase = async () => {
   await sequelize.sync({ force: true });
 
-  const playlists = [vthrillerID, vdangerousID, bgHitsID, vbad, f1, f2, adele, taylor, taylorv, livingEyesId];
+  const playlists = [vthrillerID, vdangerousID, bgHitsID, vbad, f1, f2, adele, taylor, taylorv];
 
   // Fetch all playlists and get unique artists
   const fetchedPlaylists = await Promise.all(playlists.map(fetchPlaylistVideos));
